@@ -62,6 +62,7 @@ export const config: TemplateConfig = {
       "timezone",
       "yextDisplayCoordinate",
       "c_ctabutton",
+      "c_gallery_food",
     ],
 
     filter: {
@@ -118,7 +119,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "author",
-          content: "FAVORITE CHICKEN & RIBS",
+          content: "Salata Restaurant Online Ordering Home",
         },
       },
 
@@ -134,11 +135,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "link",
         attributes: {
           rel: "canonical",
-          href: ` ${
-            document.c_canonical
-              ? document.c_canonical
-              : stagingBaseUrl + "/" + currentUrl + "/"
-          }`,
+          href: "",
         },
       },
       ///og tags
@@ -147,7 +144,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           property: "og:url",
-          content: stagingBaseUrl + "/" + currentUrl,
+          content: "",
         },
       },
 
@@ -172,7 +169,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           property: "og:image",
 
-          content: `${document.logo ? document.logo.image.url : ""}`,
+          content: "https://www.salata.com/images/favicon.ico",
         },
       },
       /// twitter tag
@@ -188,7 +185,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:url",
-          content: stagingBaseUrl + "/" + currentUrl,
+          content: "",
         },
       },
 
@@ -204,7 +201,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:image",
-          content: `${document.logo ? document.logo.image.url : ""}`,
+          content: "https://www.salata.com/images/favicon.ico",
         },
       },
     ],
@@ -254,6 +251,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     timezone,
     yextDisplayCoordinate,
     c_ctabutton,
+    c_gallery_food,
   } = document;
   let templateData = { document: document, __meta: __meta };
   let hoursSchema = [];
@@ -292,6 +290,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       hoursSchema.push(openIntervalsSchema);
     }
   }
+  console.log(timezone, "timezone");
 
   return (
     <>
@@ -321,10 +320,10 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         timezone={timezone}
       />
 
-      {photoGallery ? (
+      {c_gallery_food ? (
         <>
           {" "}
-          <List prop={photoGallery} />
+          <List prop={c_gallery_food} />
         </>
       ) : (
         <></>

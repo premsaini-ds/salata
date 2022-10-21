@@ -436,7 +436,7 @@ Hero Area
   @apply mt-6
 }
 .hero .cta_btn .button{
-  @apply bg-white text-blue text-base hover:bg-dark_blue hover:text-white leading-8
+  @apply bg-white text-blue text-base hover:bg-dark_red hover:text-white leading-8
 }
 
 /* --------------------------------------------
@@ -1048,4 +1048,139 @@ Footer
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+}
+
+
+/* ////// */
+.jiUekv {
+  padding: 60px 0px;
+  z-index: 1;
+  position: relative;
+}
+.fNyDxz {
+  width: 100%;
+  margin: 0px auto;
+}
+
+
+.fJMOZw {
+    color: rgb(58, 59, 56);
+    font-family: "GT Eesti", Helvetica, Arial, sans-serif;
+}
+article, aside, details, figcaption, figure, time, footer, header, hgroup, menu, nav, section, main {
+  display: block;
+}
+.jJzVsW {
+  width: 100%;
+  position: relative;
+  text-align: left;
+  background-color: rgb(244, 243, 227);
+}
+.hBaJiS {
+  width: 100%;
+  margin: 0px auto;
+  max-width: 1272px;
+  padding-left: 18px;
+  padding-right: 18px;
+}
+
+
+.hBaJiS {
+    width: 100%;
+    margin: 0px auto;
+    max-width: 1272px;
+    padding-left: 18px;
+    padding-right: 18px;
+}
+
+*, ::after, ::before {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: inherit;
+    border: 0px;
+    margin: 0px;
+    outline: 0px;
+    padding: 0px;
+    font-size: 100%;
+    text-size-adjust: 100%;
+    vertical-align: baseline;
+}
+
+div {
+    display: block;
+}
+
+.fJMOZw {
+    color: rgb(58, 59, 56);
+    font-family: "GT Eesti", Helvetica, Arial, sans-serif;
+}
+.jJzVsW {
+  width: 100%;
+  position: relative;
+  text-align: left;
+  background-color: rgb(244, 243, 227);
+}
+
+
+.dOzrnu {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+*, ::after, ::before {
+    -webkit-tap-highlight-color: transparent;
+    box-sizing: inherit;
+    border: 0px;
+    margin: 0px;
+    outline: 0px;
+    padding: 0px;
+    font-size: 100%;
+    text-size-adjust: 100%;
+    vertical-align: baseline;
+}
+
+div {
+    display: block;
+}
+
+.fJMOZw {
+    color: rgb(58, 59, 56);
+    font-family: "GT Eesti", Helvetica, Arial, sans-serif;
+}
+
+.jJzVsW {
+    width: 100%;
+    position: relative;
+    text-align: left;
+    background-color: rgb(244, 243, 227);
+}
+.fVNbvV {
+  -webkit-box-flex: 0;
+  flex: 0 0 calc(22.8155% + 36px);
+}
+.fJMOZw {
+  color: rgb(58, 59, 56);
+  font-family: "GT Eesti", Helvetica, Arial, sans-serif;
+}
+.lfyWdT {
+  display: flex;
+  -webkit-box-flex: 0;
+  flex: 0 0 calc(14.2395% + 36px);
+  flex-direction: column;
+}
+.eLtvqd {
+  flex: 1 1 auto;
+  font-style: normal;
+  line-height: 1.5;
+}
+.icmLL {
+  -webkit-box-align: center;
+  align-items: center;
+  color: rgb(142, 144, 142);
+  display: flex;
+  flex: 0 0 100%;
+  flex-direction: column;
+  font-size: 0.9em;
+  -webkit-box-pack: center;
+  justify-content: center;
+  margin-top: 56px;
 }

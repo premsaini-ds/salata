@@ -202,7 +202,7 @@ const LocationInformation = (data: props) => {
             <h2 className="store-time-status">
               <Hours2
                 hours={data.prop ? data.prop : {}}
-                timezone="Europe/London"
+                timezone="America/New_York"
               />
             </h2>
           </div>
@@ -261,8 +261,10 @@ const LocationInformation = (data: props) => {
                     </p>
                   </div>
 
-                  <div className="store-phone">
+                  <div className="store-link">
                     <Link
+                      data-ya-track="getdirections"
+                      eventName={`cta Click:getdirections"`}
                       className="direction"
                       onClick={getDirectionUrl}
                       href="javascript:void(0);"
@@ -283,10 +285,11 @@ const LocationInformation = (data: props) => {
                       </svg>{" "}
                       Get Directions
                     </Link>
-                  </div>
 
-                  <div className="store-link">
-                    <a className="call-store" href="https://order.salata.com/menu">
+                    <a
+                      className="call-store"
+                      href="https://order.salata.com/menu"
+                    >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="23.987"

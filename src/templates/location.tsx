@@ -57,10 +57,11 @@ export const config: TemplateConfig = {
       "photoGallery.image",
       "c_relatedfaq.question",
       "c_relatedfaq.answer",
-
+      "c_aboutData",
       "deliveryHours",
       "timezone",
       "yextDisplayCoordinate",
+      "c_ctabutton",
     ],
 
     filter: {
@@ -93,7 +94,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: favicon,
+          href: "https://www.salata.com/images/favicon.ico",
         },
       },
       {
@@ -220,7 +221,7 @@ export const transformProps: TransformProps<ExternalApiData> = async (
   },${
     data.document.yextDisplayCoordinate &&
     data.document.yextDisplayCoordinate.longitude
-  }&api_key=24a57cabafadf52431feb4c4462afea4&v=20181201&resolvePlaceholders=true&entityTypes=restaurant&savedFilterId=1062755357&limit=3&fields=googlePlaceId,slug,address,addressHidden,hours,name,geocodedCoordinate,isoRegionCode,localPhone,mainPhone,timezone,yextDisplayCoordinate,meta,timeZoneUtcOffset,what3WordsAddress,closed`;
+  }&api_key=24a57cabafadf52431feb4c4462afea4&v=20181201&resolvePlaceholders=true&entityTypes=restaurant&savedFilterId=1074282222&limit=3&fields=googlePlaceId,slug,address,addressHidden,hours,name,geocodedCoordinate,isoRegionCode,localPhone,mainPhone,timezone,yextDisplayCoordinate,meta,timeZoneUtcOffset,what3WordsAddress,closed`;
   const externalApiData = (await fetch(url).then((res: any) =>
     res.json()
   )) as nearByLocation;
@@ -248,10 +249,11 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     hours,
     photoGallery,
     c_relatedfaq,
-
+    c_aboutData,
     deliveryHours,
     timezone,
     yextDisplayCoordinate,
+    c_ctabutton,
   } = document;
   let templateData = { document: document, __meta: __meta };
   let hoursSchema = [];
@@ -290,8 +292,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       hoursSchema.push(openIntervalsSchema);
     }
   }
-  console.log(yextDisplayCoordinate, "yextDisplayCoordinate");
-  console.log(externalApiData, "externalApiData");
+
   return (
     <>
       <Header />
@@ -299,7 +300,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         Name={name}
         TagLine={""}
         BackgroundImage={""}
-        CtaButton={"c_cTAButton"}
+        CtaButton={c_ctabutton}
         template={"location"}
       />
       <LocationInformation
@@ -330,11 +331,9 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       )}
 
       <AddPromotion
-        c_title={"c_title"}
-        c_description1={description}
-        c_backgroundImages={"c_backgroundImages"}
-        androidAppUrl={"androidAppUrl"}
-        iosAppUrl={"iosAppUrl"}
+        c_title={c_aboutData.title}
+        c_description1={c_aboutData.description}
+        c_backgroundImages={c_aboutData.photoGallery}
       />
       <Faq prop={c_relatedfaq} />
       <NearByLocation
@@ -343,16 +342,6 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         slug={slug}
       />
       <Footer />
-      {/* <Footer
-        data={null}
-        address={null}
-        c_companyrn={null}
-        c_phoneNumber={null}
-        facebookPageUrl={null}
-        instagramHandle={null}
-        twitterHandle={null}
-        c_tikTok={null}
-      /> */}
     </>
   );
 };

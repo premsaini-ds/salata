@@ -34,10 +34,9 @@ const Footer = () => {
             </ul>
           </div>
           <div className="footer-address">
-            <p>Favorite Fried Chicken Limited,</p>
-            <p>7 Davy Road, Clacton-on-Sea, Essex,</p>
-            <p>CO15 4XD, United Kingdom | 01255 222568</p>
-            <p>Company Reg No. 2044486</p>
+            <p>Salata Home Office</p>
+            <p>16720 Park Row Dr,</p>
+            <p>Houston, TX 77084 |(844) 725-2821</p>
           </div>
           <div className="text-center">
             <ul className="social-links">

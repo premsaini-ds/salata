@@ -13,13 +13,13 @@ module.exports = {
       red: "rgb(176 217 92)",
       blue: "rgb(0 134 97)",
       light_black: "#252525",
-      footer_bg: "#4d4e53",
+      footer_bg: "#008661",
       dark_black: "#3f4044",
       facebook: "#45619d",
       light: "#fafafa",
       green: "#348B31",
       dark_blue: "#09093e",
-      dark_red: "#bd1508",
+      dark_red: "#008661",
     },
 
     fontFamily: {

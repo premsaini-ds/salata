@@ -1,24 +1,21 @@
 import * as React from "react";
-import phone from "../images/phone.png";
-import appStore from "../images/app-store.svg";
-import playStore from "../images/play-store.svg";
+// import phone from "../images/phone.png";
+// import appStore from "../images/app-store.svg";
+// import playStore from "../images/play-store.svg";
 
 type Props = {
   c_title: any;
   c_description1: any;
   c_backgroundImages: any;
-  androidAppUrl: any;
-  iosAppUrl: any;
+  // androidAppUrl: any;
+  // iosAppUrl: any;
 };
 
 const AddPromotion = (Data: Props) => {
-  const [data, setData] = React.useState(Data.c_description1);
-  const [myArray, setMyArray] = React.useState([]);
   React.useEffect(() => {
-    let test = data.replace(/[\\]/g, "");
-
-    let Array = test.split("\n");
-    setMyArray(Array);
+    // let test = data.replace(/[\\]/g, "");
+    // let Array = test.split("\n");
+    console.log(Data.c_backgroundImages[0].url, "Data.c_backgroundImages.url");
   }, []);
 
   return (
@@ -26,24 +23,18 @@ const AddPromotion = (Data: Props) => {
       <div className="app_promotion-sec">
         <img
           className="app-bg"
-          src={Data.c_backgroundImages ? Data.c_backgroundImages.url : ""}
+          src={
+            Data.c_backgroundImages[0].url ? Data.c_backgroundImages[0].url : ""
+          }
           alt="app-bg"
           title="app-bg"
         />
         <div className="container flex flex-wrap items-center">
           <div className="w-full app_promotion-content">
-            <h3>{Data.c_title ? Data.c_title : ""}</h3>
-            {myArray.map((i: any) => {
-              if (i) {
-                return (
-                  <>
-                    <p>{i}</p>
-                  </>
-                );
-              }
-            })}
+            <h3>{Data.c_title}</h3>
+            <p>{Data.c_description1}</p>
 
-            <div className="get-app-link">
+            {/* <div className="get-app-link">
               <ul>
                 <li>
                   <a
@@ -72,11 +63,11 @@ const AddPromotion = (Data: Props) => {
                   </a>
                 </li>
               </ul>
-            </div>
+            </div> */}
           </div>
 
           <div className="phone-img">
-            <img src={phone} alt="phone-img" title="phone-img" />
+            <img src="" alt="phone-img" title="phone-img" />
           </div>
         </div>
       </div>

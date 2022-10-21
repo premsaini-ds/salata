@@ -43,7 +43,7 @@ function CustomMap(coords: props) {
             lat: coords.prop && coords.prop.latitude,
             lng: coords.prop && coords.prop.longitude,
           }}
-          icon={marker}
+          // icon={marker}
         />
       </GoogleMap>
     </LoadScript>

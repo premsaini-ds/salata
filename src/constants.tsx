@@ -4,7 +4,7 @@ export const defaultQuery = "";
 export const api_base_url = "https://liveapi-sandbox.yext.com/v2/accounts/me";
 export const liveAPIKey = "24a57cabafadf52431feb4c4462afea4";
 export const googleMapsApiKey = "AIzaSyDZNQlSlEIkFAct5VzUtsP4dSbvOr2bE18";
-export const savedFilterId = "1062755357";
+export const savedFilterId = "1074282222";
 export const entityTypes = "restaurant";
 export const stagingBaseUrl = "https://booted-mashing-powdering.pgsdemo.com";
 

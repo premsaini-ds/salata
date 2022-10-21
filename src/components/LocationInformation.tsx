@@ -286,7 +286,7 @@ const LocationInformation = (data: props) => {
                   </div>
 
                   <div className="store-link">
-                    <a className="call-store" href="">
+                    <a className="call-store" href="https://order.salata.com/menu">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         width="23.987"

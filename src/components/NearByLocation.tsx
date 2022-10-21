@@ -71,7 +71,7 @@ const NearByLocation = (entities: props) => {
                     <SplideSlide key={index}>
                       <div className="near-location">
                         <h4>
-                          <a href={`/${e.slug}.html`}>{e.name}</a>
+                          <a href={`/${e.slug}`}>{e.name}</a>
                         </h4>
                         <div className="store-address">
                           <svg
@@ -144,7 +144,7 @@ const NearByLocation = (entities: props) => {
                             </svg>{" "}
                             Get Directions
                           </Link>
-                          <a className="view-details" href={`/${e.slug}.html`}>
+                          <a className="view-details" href={`/${e.slug}`}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="22.403"

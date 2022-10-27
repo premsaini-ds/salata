@@ -340,10 +340,13 @@ Header
   @apply right-0
 }
 .navigation ul.main-nav > li{
-  @apply lg:border-r border-white lg:hover:bg-dark_blue;
+  @apply lg:border-r border-white lg:hover:bg-dark_red;
 }
 .navigation ul.main-nav > li > a{
-  @apply pr-6 border-b border-b-[#d9d9d9] lg:border-b-0 w-full after:content-none lg:after:content-[''] after:border-t-4 after:border-t-white after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:absolute after:top-1/2 after:right-2.5 after:-mt-0.5;
+  @apply pr-6 border-b border-b-[#d9d9d9] lg:border-b-0 w-full ;
+}
+.navigation ul.main-nav > li.group > a{
+  @apply after:content-none lg:after:content-[''] after:border-t-4 after:border-t-white after:border-l-4 after:border-l-transparent after:border-r-4 after:border-r-transparent after:absolute after:top-1/2 after:right-2.5 after:-mt-0.5;
 }
 .navigation ul.main-nav a{
   @apply text-light_black lg:text-white font-semibold lg:font-normal text-base px-5 lg:px-2.5 leading-[50px] uppercase relative inline-block align-middle;
@@ -352,7 +355,7 @@ Header
   @apply mr-0;
 }
 .navigation .submenu{
-  @apply lg:absolute lg:top-full lg:left-0 lg:z-10 lg:bg-[#09093e] lg:w-[225px] transition-all duration-300 lg:max-h-0 overflow-hidden;
+  @apply lg:absolute lg:top-full lg:left-0 lg:z-10 lg:bg-dark_red lg:w-[225px] transition-all duration-300 lg:max-h-0 overflow-hidden;
 }
 .navigation ul.main-nav > li:last-child .submenu{
   @apply left-auto right-0;
@@ -361,7 +364,7 @@ Header
   @apply max-h-60;
 }
 .navigation .submenu a{
-  @apply w-full lg:hover:bg-[#060628] border-b border-b-[#d9d9d9] lg:border-b-0 w-full;
+  @apply w-full lg:hover:bg-dark_red border-b border-b-[#d9d9d9] lg:border-b-0 w-full;
 }
 .navigation ul.main-nav .submenu a{
   @apply pl-10 lg:pl-5;
@@ -436,7 +439,7 @@ Hero Area
   @apply mt-6
 }
 .hero .cta_btn .button{
-  @apply bg-white text-blue text-base hover:bg-dark_blue hover:text-white leading-8
+  @apply bg-white text-blue text-base hover:bg-dark_red hover:text-white leading-8
 }
 
 /* --------------------------------------------

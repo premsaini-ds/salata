@@ -174,6 +174,11 @@ const NearByLocation = (entities: props) => {
               })}
           </Splide>
         </div>
+        <div style={{ textAlign: "center" }}>
+          <a href="#">
+            <b>View More</b>
+          </a>
+        </div>
       </div>
     </>
   );

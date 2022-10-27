@@ -13,6 +13,7 @@ import FavoriteFood from "../components/FavoriteFood";
 import { nearByLocation } from "../types/nearByLocation";
 import { JsonLd } from "react-schemaorg";
 import favicon from "../images/favicon-live.png";
+import AboutSection from "../components/About";
 import {
   AnalyticsProvider,
   AnalyticsScopeProvider,
@@ -77,7 +78,7 @@ export const config: TemplateConfig = {
 };
 
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  return document.slug + ".html";
+  return document.slug.toString() + ".html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
@@ -290,7 +291,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       hoursSchema.push(openIntervalsSchema);
     }
   }
-  console.log(timezone, "timezone");
+  console.log(document, "timezone");
 
   return (
     <>
@@ -319,15 +320,16 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         what3WordsAddress={"what3WordsAddress"}
         timezone={timezone}
       />
+      <AboutSection prop={c_gallery_food} />
 
-      {c_gallery_food ? (
+      {/* {c_gallery_food ? (
         <>
           {" "}
           <List prop={c_gallery_food} />
         </>
       ) : (
         <></>
-      )}
+      )} */}
 
       <AddPromotion
         c_title={c_aboutData.title}

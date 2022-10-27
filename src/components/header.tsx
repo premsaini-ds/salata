@@ -55,6 +55,7 @@ const Header = (headerItem: c_headerItems) => {
             <div className="logo">
               <a href="#">
                 <img
+                  style={{ maxWidth: "50%" }}
                   src="https://order-salata-cms.azureedge.net/uploads/_/originals/salata_logo_nav@2x.svg"
                   alt="Favorite Fried Chicken"
                 />
@@ -89,7 +90,7 @@ const Header = (headerItem: c_headerItems) => {
             >
               <span></span>
             </button>
-            <div className="app-link">
+            {/* <div className="app-link">
               <a href="#">
                 <img src={appStore} alt="" />{" "}
                 <span>
@@ -102,65 +103,44 @@ const Header = (headerItem: c_headerItems) => {
                   Download on the <b>App Store</b>
                 </span>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         <nav className="navigation">
           <div className="container flex flex-row justify-between">
             <ul id="main-nav" className="main-nav">
-              <li className="group relative">
-                <a href="#">Order Now</a>
-                <ul className="submenu">
-                  <li>
-                    <a href="#">Order Favorite</a>
-                  </li>
-                  <li>
-                    <a href="#">Find Us Here Too</a>
-                  </li>
-                  <li>
-                    <a href="#">Download Our App</a>
-                  </li>
-                </ul>
+              <li>
+                <a href="#">Menu</a>
+              </li>
+              <li className=" relative">
+                <a href="#">Dressings</a>
+              </li>
+              <li className=" relative">
+                <a href="#">Catering</a>
+              </li>
+              <li className=" relative">
+                <a href="#">Loyalty</a>
               </li>
               <li className="group relative">
-                <a href="#">Order Food</a>
+                <a href="#">Grow With Us</a>
                 <ul className="submenu">
                   <li>
-                    <a href="#">View Menu</a>
+                    <a href="#">Franchising</a>
                   </li>
-                  <li>
-                    <a href="#">Allergens</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="group relative">
-                <a href="#">About</a>
-                <ul className="submenu">
                   <li>
                     <a href="#">Our Story</a>
                   </li>
                   <li>
-                    <a href="#">Customer FAQS</a>
+                    <a href="#">Careers</a>
                   </li>
                   <li>
-                    <a href="#">Contact Us</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="group relative">
-                <a href="#">We Franchise</a>
-                <ul className="submenu">
-                  <li>
-                    <a href="#">Join Us</a>
-                  </li>
-                  <li>
-                    <a href="#">Franchise FAQs</a>
+                    <a href="#">Blog</a>
                   </li>
                 </ul>
               </li>
             </ul>
 
-            <ul className="social-links">
+            {/* <ul className="social-links">
               <li>
                 <a href="#">
                   <svg
@@ -226,7 +206,7 @@ const Header = (headerItem: c_headerItems) => {
                   </svg>
                 </a>
               </li>
-            </ul>
+            </ul> */}
           </div>
         </nav>
       </div>

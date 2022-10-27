@@ -10,7 +10,6 @@ var style = {
   height: "310px",
 };
 const List = (foodItem: c_foodItems) => {
-  console.log(foodItem.photoGallarey, "hgjghj");
   return (
     <>
       <div className="food-list">

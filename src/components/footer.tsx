@@ -4,14 +4,6 @@ const Footer = () => {
   React.useEffect(() => {});
   return (
     <>
-      <div className="newsletter">
-        <div className="container">
-          <a href="#" className="signup-newsletter">
-            Sign Up to Our Newsletter
-          </a>
-        </div>
-      </div>
-
       <footer className="site-footer">
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">

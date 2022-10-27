@@ -235,31 +235,53 @@ export default function Hours2(props: any) {
   );
   let data = openClose.formatOpenNowString(props.hours, parsedOffset);
   const data1 = data.split("-");
-
+  console.log(props, "props");
+  console.log(props.component, "props");
   return (
     <>
-      <h2 className="store-time-status" style={{ color: "rgb(176 217 92)" }}>
-        {props.hours && props.hours.reopenDate ? (
-          <span>Temp Closed</span>
-        ) : props.hours ? (
-          <>
-            <strong>
-              <span style={{ color: "rgb(176 217 92)" }}>
-                {data1[0] ? data1[0] : ""}
-              </span>
-            </strong>{" "}
-            -<span>{data1[1] ? data1[1] : ""}</span>
-          </>
-        ) : (
-          // <span style={{ marginLeft: "8px" }}>
-          //   {openClose.formatOpenNowString(props.hours, parsedOffset) ==
-          //   "Open - Closed at 24:00"
-          //     ? "Open - Closed at 00:00 "
-          //     : openClose.formatOpenNowString(props.hours, parsedOffset)}
-          // </span>
-          <span>Closed</span>
-        )}
-      </h2>
+      {props.component == "nearBy" ? (
+        <>
+          {props.hours && props.hours.reopenDate ? (
+            <span>Temp Closed</span>
+          ) : props.hours ? (
+            <>
+              <span>{data1[0] ? data1[0] : ""}</span>-
+              <span>{data1[1] ? data1[1] : ""}</span>
+            </>
+          ) : (
+            // <span style={{ marginLeft: "8px" }}>
+            //   {openClose.formatOpenNowString(props.hours, parsedOffset) ==
+            //   "Open - Closed at 24:00"
+            //     ? "Open - Closed at 00:00 "
+            //     : openClose.formatOpenNowString(props.hours, parsedOffset)}
+            // </span>
+            <span>Closed</span>
+          )}
+        </>
+      ) : (
+        <>
+          {" "}
+          <h2
+            className="store-time-status"
+            style={{ color: "rgb(176 217 92)" }}
+          >
+            {props.hours && props.hours.reopenDate ? (
+              <span>Temp Closed</span>
+            ) : props.hours ? (
+              <>
+                <strong>
+                  <span style={{ color: "rgb(176 217 92)" }}>
+                    {data1[0] ? data1[0] : ""}
+                  </span>
+                </strong>{" "}
+                -<span>{data1[1] ? data1[1] : ""}</span>
+              </>
+            ) : (
+              <span>Closed</span>
+            )}
+          </h2>
+        </>
+      )}
     </>
   );
 }

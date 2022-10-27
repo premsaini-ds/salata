@@ -320,16 +320,16 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         what3WordsAddress={"what3WordsAddress"}
         timezone={timezone}
       />
-      <AboutSection prop={c_gallery_food} />
+      <AboutSection prop={c_gallery_food} prop2={c_aboutData} />
 
-      {/* {c_gallery_food ? (
+      {c_gallery_food ? (
         <>
           {" "}
           <List prop={c_gallery_food} />
         </>
       ) : (
         <></>
-      )} */}
+      )}
 
       <AddPromotion
         c_title={c_aboutData.title}

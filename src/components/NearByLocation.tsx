@@ -14,6 +14,7 @@ const NearByLocation = (entities: props) => {
   const [data, setData] = useState([]);
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   useEffect(() => {
+    console.log(entities.slug, "entities");
     console.log(
       entities.prop.response.entities,
       "entities.prop.response.entities"
@@ -57,6 +58,7 @@ const NearByLocation = (entities: props) => {
           >
             {data &&
               data.map((e: any, index: any) => {
+                console.log(entities.slug + ".html", e.slug, "fjldjfl");
                 var origin: any = null;
                 if (e.address.city) {
                   origin = e.address.city;
@@ -66,7 +68,7 @@ const NearByLocation = (entities: props) => {
                   origin = e.address.country;
                 }
 
-                if (entities.slug != e.slug && e.closed != true) {
+                if (entities.slug + ".html" != e.slug && e.closed != true) {
                   return (
                     <SplideSlide key={index}>
                       <div className="near-location">

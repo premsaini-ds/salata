@@ -5,7 +5,7 @@ type c_foodItems = {
   prop: any;
 };
 var style = {
-  width: "310px",
+  width: "100%",
   height: "310px",
 };
 const AboutSection = (foodItem: c_foodItems) => {

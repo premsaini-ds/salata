@@ -320,7 +320,11 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         what3WordsAddress={"what3WordsAddress"}
         timezone={timezone}
       />
-      <AboutSection prop={c_gallery_food} prop2={c_aboutData} />
+      <AboutSection
+        prop={c_gallery_food}
+        prop2={c_aboutData}
+        CtaButton={c_ctabutton}
+      />
 
       {c_gallery_food ? (
         <>

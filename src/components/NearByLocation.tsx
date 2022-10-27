@@ -184,8 +184,8 @@ const NearByLocation = (entities: props) => {
           </Splide>
         </div>
         <div style={{ textAlign: "center" }}>
-          <a href="#">
-            <b>View More</b>
+          <a href="https://order.salata.com/locations">
+            <b>View More Location</b>
           </a>
         </div>
       </div>

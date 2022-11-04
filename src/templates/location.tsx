@@ -64,6 +64,10 @@ export const config: TemplateConfig = {
       "yextDisplayCoordinate",
       "c_ctabutton",
       "c_gallery_food",
+      "dm_directoryParents.name",
+      "dm_directoryParents.slug",
+      "dm_directoryParents.meta.entityType",
+      "dm_directoryParents.c_addressRegionDisplayName",
     ],
 
     filter: {
@@ -253,6 +257,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     yextDisplayCoordinate,
     c_ctabutton,
     c_gallery_food,
+    dm_directoryParents,
   } = document;
   let templateData = { document: document, __meta: __meta };
   let hoursSchema = [];
@@ -296,6 +301,12 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
   return (
     <>
       <Header />
+      <BreadCrumbs
+        name={name}
+        parents={dm_directoryParents}
+        baseUrl={relativePrefixToRoot}
+        address={address}
+      ></BreadCrumbs>
       <Banner
         Name={name}
         TagLine={""}

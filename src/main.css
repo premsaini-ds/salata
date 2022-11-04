@@ -1052,3 +1052,4 @@ Footer
   -moz-box-sizing: border-box;
   box-sizing: border-box;
 }
+.viewMore:hover {color: rgb(0 134 97 / var(--tw-text-opacity))}

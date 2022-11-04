@@ -27,6 +27,9 @@ type OpenIntervals = {
   start: string;
   end: string;
 };
+var nextDay: any = null;
+var nextDayName: any = null;
+var openDays: any = [];
 
 const todayIndex = new Date().getDay();
 
@@ -87,8 +90,15 @@ const renderHours = (week: Week, deliveryHours: any) => {
   const dayDom: JSX.Element[] = [];
   const deliverDayDom: JSX.Element[] = [];
   let sortDeliveryHours = sortByDay(deliveryHours);
+  let allDays = Object.entries(sortByDay(week));
 
-  for (let [k, v, i = 0] of Object.entries(sortByDay(week))) {
+  for (let [k, v] of allDays) {
+    if (!v.isClosed) {
+      openDays.push({ key: k, openIntervals: v.openIntervals });
+    }
+  }
+
+  for (let [k, v, i = 0] of allDays) {
     i++;
     let delTime: any = "";
     let delk: any = "";
@@ -120,27 +130,6 @@ function isDayToday(dayName: string) {
   return defaultSorter[dayName] === todayIndex;
 }
 
-function convertTo12HourFormat(time: string, includeMeridiem: boolean): string {
-  const timeParts = time.split(":");
-  let hour: any = Number(timeParts[0]);
-  const minutesString = timeParts[1];
-  const meridiem = hour < 12 || hour === 24 ? "" : ""; // Set AM/PM
-  hour = hour % 24 || 24; // Adjust hours
-  if (hour == 24) {
-    return "00.00";
-  }
-  if (hour < 10) {
-    hour = "0" + hour;
-    return (
-      hour.toString() + ":" + minutesString + (includeMeridiem ? meridiem : "")
-    );
-  } else {
-    return (
-      hour.toString() + ":" + minutesString + (includeMeridiem ? meridiem : "")
-    );
-  }
-}
-
 type DayRow = {
   dayName: string;
   day: Day;
@@ -149,74 +138,92 @@ type DayRow = {
   delDayName: string;
   delDay: Day;
   delIsToday?: boolean;
+  key: any;
 };
 
 const DayRow = (props: DayRow) => {
   const { dayName, day, isToday, delKey, delDayName, delDay, delIsToday } =
     props;
+  var nextday: any = null;
 
-  return (
-    <div className={`${isToday ? "currentDay" : ""} time-row`}>
-      <div className="capitalize day">{dayName}</div>
-      {day && !day.isClosed ? (
+  const date = new Date();
+  var status = null;
+  if (!props.day.isClosed) {
+    if (
+      props?.day.openIntervals[0].start >
+        date.toLocaleString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Europe/London",
+        }) ||
+      props.day?.openIntervals[0].start ==
+        date.toLocaleString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          hour12: false,
+          timeZone: "Europe/London",
+        })
+    ) {
+      if (props.isToday == true) {
+        status = (
+          <>
+            <strong>
+              <span>CLOSED</span>
+            </strong>{" "}
+            - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
+          </>
+        );
+      }
+    } else {
+      if (props.isToday == true) {
+        status = (
+          <>
+            <strong>
+              <span>OPEN</span>{" "}
+            </strong>
+            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
+          </>
+        );
+      }
+    }
+  } else {
+    if (props.isToday == true) {
+      status = openDays.length ? (
         <>
-          <div className="store-time">
-            {convertTo12HourFormat(day.openIntervals[0].start, true)} -{" "}
-            {convertTo12HourFormat(day.openIntervals[0].end, true)}
-          </div>
+          <strong>
+            <span>CLOSED</span>{" "}
+          </strong>
+          -{" "}
+          <span>
+            OPENS ON {openDays[0].key} at {openDays[0].openIntervals[0].start}
+          </span>
         </>
       ) : (
-        <div className="store-time closed">
-          <span>Closed</span>
-        </div>
-      )}
+        <>
+          <strong>
+            <span>CLOSED</span>
+          </strong>
+        </>
+      );
+    }
+  }
 
-      {delDay && !delDay.isClosed ? (
-        <>
-          <div className="store-time">
-            {convertTo12HourFormat(delDay.openIntervals[0].start, true)} -{" "}
-            {convertTo12HourFormat(delDay.openIntervals[0].end, true)}
-          </div>
-        </>
-      ) : (
-        <>
-          {Object.keys(delDay).length > 0 ? (
-            <div className="store-time closed">
-              <span>Closed</span>
-            </div>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
-    </div>
-  );
+  return <>{status}</>;
 };
 
-const Hours = (props: Hours) => {
+const OpenClose = (props: Hours) => {
   const { title, hours, deliveryHours, timezone } = props;
 
   return (
     <>
-      <div className="box store-timing">
-        <div className="inner-box">
-          <h4>Store Timing</h4>
-          <div className="hours">
-            <div className="time-row">
-              <div className="day"></div>
-
-              {Object.keys(props.deliveryHours).length > 0 ? (
-                <div className="delivery-time">Delivery</div>
-              ) : (
-                <></>
-              )}
-            </div>
-            {renderHours(hours, deliveryHours)}
-          </div>
-        </div>
-      </div>
+      {props.hours && props.hours.reopenDate ? (
+        <span>Temp Closed</span>
+      ) : (
+        <> {renderHours(hours, deliveryHours)}</>
+      )}
     </>
   );
 };
 
-export default Hours;
+export default OpenClose;

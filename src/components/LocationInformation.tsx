@@ -1,12 +1,9 @@
 import * as React from "react";
 import Hours from "../components/hours";
 import CustomMap from "../components/CustomMap";
-import favorite from "../images/favorite.svg";
-import justeats from "../images/justeats.svg";
-import uber_eats from "../images/uber-eats.svg";
-import deliveroo from "../images/deliveroo.svg";
+
 import { Link, useAnalytics } from "@yext/pages/components";
-import Hours2 from "../components/hours2";
+import OpenCloseTime from "../components/OpenCloseTime";
 
 type props = {
   prop: any;
@@ -200,9 +197,10 @@ const LocationInformation = (data: props) => {
         <div className="container">
           <div className="w-full text-center pb-4 lg:pb-5">
             <h2 className="store-time-status">
-              <Hours2
-                hours={data.prop ? data.prop : {}}
-                timezone="America/New_York"
+              <OpenCloseTime
+                hours={time ? time : {}}
+                deliveryHours={delHours ? delHours : {}}
+                timezone={timezone ? timezone : {}}
               />
             </h2>
           </div>

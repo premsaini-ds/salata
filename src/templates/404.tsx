@@ -27,7 +27,7 @@ const FourOhFour: Template<TemplateRenderProps> = () => {
   return (
     <>
       <Header />
-      <h1>404 - Page Not Found</h1>
+      <h1 style={{ textAlign: "center" }}>404 - Page Not Found</h1>
       <Footer />
     </>
   );

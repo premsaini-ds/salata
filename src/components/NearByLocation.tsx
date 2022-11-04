@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import Hours2 from "../components/hours2";
+import OpenCloseTime from "./OpenCloseTime";
 import "@splidejs/react-splide/css";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";
@@ -126,12 +126,12 @@ const NearByLocation = (entities: props) => {
                             </Link>
                           </p>
                         </div>
-                        <Hours2
+
+                        <OpenCloseTime
                           hours={e.hours ? e.hours : {}}
                           timezone="America/New_York"
-                          component="nearBy"
+                          deliveryHours={e.hours ? e.hours : {}}
                         />
-
                         <div className="store-link">
                           <Link
                             className="direction"
@@ -185,7 +185,7 @@ const NearByLocation = (entities: props) => {
         </div>
         <div style={{ textAlign: "center" }}>
           <a href="https://order.salata.com/locations">
-            <b>View More Location</b>
+            <b className="viewMore">View More Location</b>
           </a>
         </div>
       </div>

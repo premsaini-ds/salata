@@ -39,7 +39,9 @@ const LocationInformation = (data: props) => {
   const [timezone, setTimeZone] = React.useState("");
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   const [phone, setPhone] = React.useState(null);
+  const [address_str, serAddress_str] = React.useState("");
   React.useEffect(() => {
+    getString();
     setTime(data.prop);
     setCoordinate(data.coords);
     setDelHours(data.deliveryHours);
@@ -73,6 +75,25 @@ const LocationInformation = (data: props) => {
     facebook = checkfacebook;
   }, []);
 
+  function getString() {
+    let address_string = "";
+    address_string =
+      data.address.line1 +
+      "," +
+      data.address.line2 +
+      "," +
+      data.address.city +
+      "," +
+      data.address.region +
+      "," +
+      data.address.postalCode +
+      "," +
+      regionNames.of(data.address.countryCode);
+
+    address_string = address_string.replace("undefined,", "");
+    serAddress_str(address_string);
+  }
+
   const getDirectionUrl = () => {
     var origin: any = null;
     if (data.address.city) {
@@ -84,21 +105,13 @@ const LocationInformation = (data: props) => {
     }
     if (navigator.geolocation) {
       const error = (error: any) => {
-        var message_string =
-          "Unable to determine your location. please share your location";
-        if (confirm(message_string) != true) {
-          var getDirectionUrl =
-            "https://www.google.com/maps/dir/?api=1&destination=" +
-            data.coords.latitude +
-            "," +
-            data.coords.longitude +
-            "&origin=" +
-            data.address.postalCode;
+        var getDirectionUrl =
+          "https://www.google.com/maps/dir/?api=1&destination=" +
+          address_str +
+          "&origin=" +
+          origin;
 
-          window.open(getDirectionUrl, "_blank");
-        } else {
-          return false;
-        }
+        window.open(getDirectionUrl, "_blank");
       };
       navigator.geolocation.getCurrentPosition(
         function (position) {
@@ -106,9 +119,7 @@ const LocationInformation = (data: props) => {
           let currentLongitude = position.coords.longitude;
           let getDirectionUrl =
             "https://www.google.com/maps/dir/?api=1&destination=" +
-            data.coords.latitude +
-            "," +
-            data.coords.longitude +
+            address_str +
             "&origin=" +
             currentLatitude +
             "," +
@@ -122,7 +133,6 @@ const LocationInformation = (data: props) => {
       );
     }
   };
-
   const todayIndex = new Date().getDay();
 
   function getSorterForCurrentDay(): { [key: string]: number } {

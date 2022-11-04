@@ -18,16 +18,7 @@ import {
   AnalyticsProvider,
   AnalyticsScopeProvider,
 } from "@yext/pages/components";
-import {
-  radius,
-  api_base_url,
-  liveAPIKey,
-  savedFilterId,
-  entityTypes,
-  limit,
-  stagingBaseUrl,
-  cookieText,
-} from "../constants";
+
 import "../index.css";
 import "../main.css";
 import {
@@ -296,7 +287,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       hoursSchema.push(openIntervalsSchema);
     }
   }
-  console.log(document, "timezone");
+  console.log(timezone, "timezone");
 
   return (
     <>
@@ -346,11 +337,11 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         <></>
       )}
 
-      <AddPromotion
+      {/* <AddPromotion
         c_title={c_aboutData.title}
         c_description1={c_aboutData.description}
         c_backgroundImages={c_aboutData.photoGallery}
-      />
+      /> */}
       <Faq prop={c_relatedfaq} />
       <NearByLocation
         prop={externalApiData}

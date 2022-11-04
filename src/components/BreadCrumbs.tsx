@@ -70,9 +70,7 @@ const BreadCrumbs = (props: data) => {
               </svg>
             </a>
           </li>
-          <li>
-            <a href="#">Store Locator</a>
-          </li>
+
           {list ? (
             list
           ) : (

@@ -36,7 +36,7 @@ function CustomMap(coords: props) {
           lat: coords.prop && coords.prop.latitude,
           lng: coords.prop && coords.prop.longitude,
         }}
-        zoom={15}
+        zoom={21}
       >
         <Marker
           position={{

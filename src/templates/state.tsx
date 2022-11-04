@@ -219,7 +219,7 @@ const State: Template<TemplateRenderProps> = ({
       <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
         <a
           key={entity.slug}
-          href={entity.slug + ".html"}
+          href={"/" + entity.slug + ".html"}
           className="hover:text-red"
         >
           {entity.name} ({entity.dm_directoryChildrenCount})
@@ -227,7 +227,7 @@ const State: Template<TemplateRenderProps> = ({
       </div>
     );
   });
-
+  console.log(dm_directoryChildren, "dm_directoryChildren");
   return (
     <>
       <Header />

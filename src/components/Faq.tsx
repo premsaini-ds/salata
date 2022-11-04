@@ -34,8 +34,8 @@ const Faq = (faqData: Faq) => {
 
   useEffect(() => {
     setFaq_Data(faqData.prop);
-    let left = faqData.prop.length / 2;
-    let right = faqData.prop.length - Math.round(left);
+    let left = Math.round(faqData.prop.length / 2);
+    let right = faqData.prop.length - left;
     setLeftFaqLen(left);
     setRightFaqLen(right);
   });
@@ -52,7 +52,7 @@ const Faq = (faqData: Faq) => {
           <div className="faq-blocks">
             <div className="left-faq">
               {faq_Data.map((i: any, index: any) => {
-                if (index <= rightFaqLen) {
+                if (index + 1 <= leftFaqLen) {
                   return (
                     <div
                       id={index}
@@ -84,7 +84,7 @@ const Faq = (faqData: Faq) => {
             <div className="right-faq">
               <div className="faq-block">
                 {faq_Data.map((i: any, index: any) => {
-                  if (index >= rightFaqLen) {
+                  if (index + 1 > leftFaqLen) {
                     return (
                       <>
                         <div

@@ -68,7 +68,7 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
 
   currentUrl = slugString + document.slug + ".html";
 
-  return slugString + document.slug + ".html";
+  return document.slug + ".html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
@@ -462,6 +462,7 @@ const City: Template<TemplateRenderProps> = ({
       );
     }
   }
+  console.log(document, "document");
 
   return (
     <>

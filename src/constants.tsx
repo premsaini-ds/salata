@@ -6,8 +6,11 @@ export const liveAPIKey = "24a57cabafadf52431feb4c4462afea4";
 export const googleMapsApiKey = "AIzaSyDZNQlSlEIkFAct5VzUtsP4dSbvOr2bE18";
 export const savedFilterId = "1074282222";
 export const entityTypes = "restaurant";
-export const stagingBaseUrl = "https://booted-mashing-powdering.pgsdemo.com";
+export const stagingBaseUrl = "https://deeply-selfish-gopher.sbx.pgsdemo.com/";
 
-export const cookieText =
-  " We use cookies on our website. Some are essential to enable to site to function, others are analytical and help us monitor site usage, whilst some are used for the personalisation of ads. You are free to manage this via your browser setting at any time. To learn more about how we use these cookies, please see our cookies policy.";
+export const cookieStartText =
+  "We use cookies on our website to provide you with an improved browsing experience. See our";
+export const cookieEndText = "for more information.";
+export const CookieprivacypolicyUrl = "https://www.salata.com/privacy";
 export const bannerText = "Favorite - Britain's Tastiest Chicken!";
+export const timeZone = "America/Los_Angeles";

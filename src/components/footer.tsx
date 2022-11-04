@@ -1,5 +1,11 @@
 import * as React from "react";
-
+import CookieConsent from "react-cookie-consent";
+import {
+  cookieStartText,
+  cookieEndText,
+  CookieprivacypolicyUrl,
+} from "../../src/constants";
+import "../../src/main.css";
 const Footer = () => {
   React.useEffect(() => {});
   return (
@@ -101,6 +107,24 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+
+      <CookieConsent
+        enableDeclineButton
+        flipButtons
+        location="bottom"
+        buttonText={"I Accept"}
+        cookieName="myAwesomeCookieName2"
+        expires={150}
+        contentStyle={{ color: "black" }}
+        contentClasses="CoRhA"
+        buttonStyle={{ color: "white" }}
+      >
+        {cookieStartText}{" "}
+        <a href={CookieprivacypolicyUrl} style={{ color: "red" }}>
+          privacy policy
+        </a>{" "}
+        {cookieEndText}
+      </CookieConsent>
     </>
   );
 };

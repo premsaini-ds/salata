@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
-import OpenCloseTime from "./OpenCloseTime";
+import OpenCloseTime from "./openClose";
 import "@splidejs/react-splide/css";
 
 import { Splide, SplideSlide } from "@splidejs/react-splide";

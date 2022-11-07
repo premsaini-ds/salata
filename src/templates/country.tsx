@@ -75,7 +75,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: favicon,
+          href: 'https://www.salata.com/images/favicon.ico',
         },
       },
       {

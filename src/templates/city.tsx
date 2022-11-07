@@ -47,26 +47,26 @@ export const config: TemplateConfig = {
       "dm_directoryChildren.address",
       "dm_directoryChildren.hours",
       "dm_directoryChildren.mainPhone",
-      "dm_directoryChildren.what3WordsAddress",
+
       "dm_directoryChildren.yextDisplayCoordinate",
     ],
     localization: {
-      locales: ["en_GB"],
+      locales: ["en"],
       primary: false,
     },
   },
 };
 
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  let slugString = "";
-  document.dm_directoryParents.forEach((e: any) => {
-    if (e.sulg != "restaurants" && e.slug != "gb") {
-      slugString += e.slug + "/";
-      slugString = slugString.replace("restaurants", "");
-    }
-  });
+  // let slugString = "";
+  // document.dm_directoryParents.forEach((e: any) => {
+  //   if (e.sulg != "restaurants" && e.slug != "gb") {
+  //     slugString += e.slug + "/";
+  //     slugString = slugString.replace("restaurants", "");
+  //   }
+  // });
 
-  currentUrl = slugString + document.slug + ".html";
+  // currentUrl = slugString + document.slug + ".html";
 
   return document.slug + ".html";
 };
@@ -218,11 +218,6 @@ const City: Template<TemplateRenderProps> = ({
     dm_directoryChildren,
   } = document;
 
-  let slugString = "";
-  document.dm_directoryParents.forEach((e: any) => {
-    slugString += e.slug + "/";
-    console.log(slugString, "slugString");
-  });
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
   const childrenDivs = dm_directoryChildren.map((entity: any) => {
@@ -473,7 +468,7 @@ const City: Template<TemplateRenderProps> = ({
         baseUrl={relativePrefixToRoot}
       ></BreadCrumbs>
       <Banner
-        Name={document.dm_directoryParents ? document.dm_directoryParents : []}
+        // Name={dm_directoryParents ? dm_directoryParents : []}
         TagLine={""}
         BackgroundImage={bannerImage}
         CtaButton={""}

@@ -158,37 +158,46 @@ const DayRow = (props: DayRow) => {
   return (
     <div className={`${isToday ? "currentDay" : ""} time-row`}>
       <div className="capitalize day">{dayName}</div>
-      {day && !day.isClosed ? (
-        <>
-          <div className="store-time">
-            {convertTo12HourFormat(day.openIntervals[0].start, true)} -{" "}
-            {convertTo12HourFormat(day.openIntervals[0].end, true)}
-          </div>
-        </>
-      ) : (
-        <div className="store-time closed">
-          <span>Closed</span>
-        </div>
-      )}
-
-      {delDay && !delDay.isClosed ? (
-        <>
-          <div className="store-time">
-            {convertTo12HourFormat(delDay.openIntervals[0].start, true)} -{" "}
-            {convertTo12HourFormat(delDay.openIntervals[0].end, true)}
-          </div>
-        </>
-      ) : (
-        <>
-          {Object.keys(delDay).length > 0 ? (
-            <div className="store-time closed">
-              <span>Closed</span>
+      <div className="store-times">
+        {day && !day.isClosed ? (
+          <>
+            <div className="store-time">
+              {convertTo12HourFormat(day.openIntervals[0].start, true)}
             </div>
-          ) : (
-            <></>
-          )}
-        </>
-      )}
+            <div className="store-time">-</div>
+            <div className="store-time">
+              {convertTo12HourFormat(day.openIntervals[0].end, true)}
+            </div>
+          </>
+        ) : (
+          <div className="store-time closed">
+            <span>Closed</span>
+          </div>
+        )}
+
+        {delDay && !delDay.isClosed ? (
+          <>
+            <div className="store-time">
+              {convertTo12HourFormat(delDay.openIntervals[0].start, true)}
+
+              <div className="store-time">-</div>
+              <div className="store-time">
+                {convertTo12HourFormat(delDay.openIntervals[0].end, true)}
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {Object.keys(delDay).length > 0 ? (
+              <div className="store-time closed">
+                <span>Closed</span>
+              </div>
+            ) : (
+              <></>
+            )}
+          </>
+        )}
+      </div>
     </div>
   );
 };

@@ -29,7 +29,7 @@ const Banner = (Data: props) => {
     cid: "dc6937a6-345d-4c0f-b63f-79be3c29d7bc",
     cv: "3",
   };
-  console.log(Data.CtaButton.label, "data");
+  // console.log(Data.CtaButton.label, "data");
   return (
     <>
       <div className="hero">
@@ -44,7 +44,7 @@ const Banner = (Data: props) => {
           title="banner"
         />
         <div className="container text-center">
-          <h1>{Data.Name}</h1>
+          <h1>{Data.Name ? Data.Name : ""}</h1>
           <p>{Data.TagLine ? Data.TagLine : ""}</p>
           {Data.CtaButton.label && Data.CtaButton.link ? (
             <div className="cta_btn">

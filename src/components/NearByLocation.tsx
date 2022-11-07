@@ -7,7 +7,7 @@ import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Link } from "@yext/pages/components";
 type props = {
   prop: any;
-
+  miles: any;
   coords: any;
   slug: any;
 };

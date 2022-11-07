@@ -31,7 +31,7 @@ const BreadCrumbs = (props: data) => {
           parents[i].slug = `${parents[i].slug}`;
         } else if (parents[i].meta.entityType.id == "ce_city") {
           parents[i].name = parents[i].name;
-          parents[i].slug = `${parents[i - 1].slug}/${parents[i].slug}`;
+          parents[i].slug = `${parents[i].slug}`;
           data.push({
             name: parents[i].name,
             slug: parents[i].slug,

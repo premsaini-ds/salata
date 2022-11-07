@@ -313,7 +313,7 @@ const LocationInformation = (data: props) => {
 
             <div className="box map-info">
               <div className="inner-box">
-                <CustomMap prop={coordinates} />
+                <CustomMap address={data.address} />
               </div>
             </div>
           </div>

@@ -238,7 +238,7 @@ const State: Template<TemplateRenderProps> = ({
         address={{}}
       ></BreadCrumbs>
       <Banner
-        Name={document.dm_directoryParents[1].name}
+        Name={name}
         TagLine={""}
         BackgroundImage={bannerImage}
         CtaButton={""}

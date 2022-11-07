@@ -403,8 +403,6 @@ const City: Template<TemplateRenderProps> = ({
   function getDirectionUrl(entitiy: any) {
     var address_string = "";
     address_string =
-      "Favorite Chicken" +
-      "," +
       entitiy.address.line1 +
       "," +
       entitiy.address.line2 +
@@ -457,7 +455,7 @@ const City: Template<TemplateRenderProps> = ({
       );
     }
   }
-  console.log(document, "document");
+  console.log(dm_directoryParents, "document");
 
   return (
     <>
@@ -468,7 +466,7 @@ const City: Template<TemplateRenderProps> = ({
         baseUrl={relativePrefixToRoot}
       ></BreadCrumbs>
       <Banner
-        // Name={dm_directoryParents ? dm_directoryParents : []}
+        Name={name ? name : ""}
         TagLine={""}
         BackgroundImage={bannerImage}
         CtaButton={""}

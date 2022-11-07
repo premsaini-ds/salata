@@ -599,16 +599,22 @@ Location information
   @apply w-full;
 }
 .hours .time-row{
-  @apply flex flex-row w-full justify-between first:font-semibold first:uppercase leading-9 pl-9 pr-1.5;
+  @apply flex flex-row w-full first:font-semibold first:uppercase leading-9 pl-9 pr-1.5 flex-[1_1_auto];
+}
+.hours .time-row .store-times{
+  @apply w-auto flex flex-row flex-[1_1_auto] justify-between
 }
 .hours .time-row .day{
-  @apply flex-1 pl-1;
+  @apply pl-1 flex-[1_1_auto] max-w-[10rem];
 }
 .hours .time-row .store-time{
-  @apply flex-1 pl-1;
+  @apply pl-1;
+}
+.hours .time-row .closed{
+  @apply w-full text-center;
 }
 .hours .time-row .delivery-time{
-  @apply flex-1 pl-1;
+  @apply pl-1;
 }
 .hours .time-row.currentDay{
   @apply text-white bg-blue relative before:w-3.5 before:h-2 before:border-l-2 before:border-l-white before:border-b-2 before:border-b-white before:transform before:-rotate-45 before:absolute before:top-3 before:left-2.5;

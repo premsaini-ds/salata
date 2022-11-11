@@ -230,9 +230,20 @@ const DayRow = (props: DayRow) => {
   var status = null;
 
   if (!props.day.isClosed) {
-    if (
-      props?.day.openIntervals[0].start < usDate ||
-      openDays[0].openIntervals[0].start == usDate
+    if (openDays[0].openIntervals[0].start == usDate) {
+      if (props.isToday == true) {
+        status = (
+          <>
+            <strong>
+              <span>OPEN</span>{" "}
+            </strong>
+            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
+          </>
+        );
+      }
+    } else if (
+      props?.day.openIntervals[0].start < usDate &&
+      props?.day.openIntervals[0].end > usDate
     ) {
       if (props.isToday == true) {
         status = (

@@ -611,7 +611,7 @@ Location information
   @apply pl-1;
 }
 .hours .time-row .closed{
-  @apply w-full text-center;
+  @apply w-full text-inherit;
 }
 .hours .time-row .delivery-time{
   @apply pl-1;

@@ -145,117 +145,18 @@ type DayRow = {
 const DayRow = (props: DayRow) => {
   const { dayName, day, isToday, delKey, delDayName, delDay, delIsToday } =
     props;
-  console.log(props, "props");
+  var nextday: any = null;
+
   const date = new Date();
-  const usDate = date.toLocaleString("en-US", {
+  var status = null;
+  var usDate = date.toLocaleString("en-US", {
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
-    timeZone: "America/Los_Angeles",
+    timeZone: timeZone,
   });
-
-  console.log(
-    date.toLocaleString("en-US", {
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: false,
-      timeZone: timeZone,
-    }),
-    "ddddd"
-  );
-
-  // var status = null;
-  // if (!props.day.isClosed) {
-  //   console.log("props.day.isClosed false");
-  //   if (props?.day.openIntervals[0].start >= usDate) {
-  //     status = (
-  //       <>
-  //         <strong>
-  //           <span>OPEN</span>{" "}
-  //         </strong>
-  //         - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-  //       </>
-  //     );
-  //   } else if (props?.day.openIntervals[0].end <= usDate) {
-  //     status = (
-  //       <>
-  //         <strong>
-  //           <span>OPEN</span>{" "}
-  //         </strong>
-  //         - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-  //       </>
-  //     );
-  //   } else if (props?.day.openIntervals[0].start > usDate) {
-  //     status = (
-  //       <>
-  //         <strong>
-  //           <span>CLOSED</span>{" "}
-  //         </strong>
-  //         - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
-  //       </>
-  //     );
-  //   } else if (props?.day.openIntervals[0].start > usDate) {
-  //     status = (
-  //       <>
-  //         <strong>
-  //           <span>CLOSED</span>{" "}
-  //         </strong>
-  //         - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
-  //       </>
-  //     );
-  //   }
-  //   console.log(status, "status");
-  // } else {
-  //   console.log("props.day.isClosed true TODAY STORE IS CLOSED");
-  //   if (props.isToday == true) {
-  //     status = openDays.length ? (
-  //       <>
-  //         <strong>
-  //           <span>CLOSED</span>{" "}
-  //         </strong>
-  //         -{" "}
-  //         <span>
-  //           OPENS ON {openDays[0].key} at {openDays[0].openIntervals[0].start}
-  //         </span>
-  //       </>
-  //     ) : (
-  //       <>
-  //         <strong>
-  //           <span>CLOSED</span>
-  //         </strong>
-  //       </>
-  //     );
-  //   }
-  // }
-  var status = null;
-
   if (!props.day.isClosed) {
-    if (openDays[0].openIntervals[0].start == usDate) {
-      if (props.isToday == true) {
-        status = (
-          <>
-            <strong>
-              <span>OPEN</span>{" "}
-            </strong>
-            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-          </>
-        );
-      }
-    } else if (
-      props?.day.openIntervals[0].start < usDate &&
-      props?.day.openIntervals[0].end > usDate
-    ) {
-      if (props.isToday == true) {
-        status = (
-          <>
-            <strong>
-              <span>OPEN</span>{" "}
-            </strong>
-            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-          </>
-        );
-      }
-    } else if (
+    if (
       props?.day.openIntervals[0].start < usDate &&
       props?.day.openIntervals[0].end < usDate
     ) {
@@ -269,77 +170,47 @@ const DayRow = (props: DayRow) => {
           </>
         );
       }
-    } else if (props.day?.openIntervals[0].start > usDate) {
+    } else if (props?.day.openIntervals[0].start == usDate) {
       status = (
         <>
           <strong>
-            <span>CLOSED</span>
-          </strong>{" "}
-          - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
+            <span>OPEN</span>{" "}
+          </strong>
+          - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
+        </>
+      );
+    } else if (props?.day.openIntervals[0].start < usDate) {
+      status = (
+        <>
+          <strong>
+            <span>OPEN</span>{" "}
+          </strong>
+          - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
         </>
       );
     }
-  } else {
-    if (props.isToday == true) {
-      status = openDays.length ? (
-        <>
-          <strong>
-            <span>CLOSED</span>{" "}
-          </strong>
-          -{" "}
-          <span>
-            OPENS ON {openDays[0].key} at {openDays[0].openIntervals[0].start}
-          </span>
-        </>
-      ) : (
-        <>
-          <strong>
-            <span>CLOSED</span>
-          </strong>
-        </>
-      );
-    }
-  }
-  var status = null;
 
-  if (!props.day.isClosed) {
-    if (props?.day.openIntervals[0].start > usDate) {
-      if (props.isToday == true) {
-        status = (
-          <>
-            <strong>
-              <span>CLOSED</span>
-            </strong>{" "}
-            - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
-          </>
-        );
-      }
-    } else if (
-      props?.day.openIntervals[0].start < usDate ||
-      openDays[0].openIntervals[0].start == usDate
-    ) {
-      if (props.isToday == true) {
-        status = (
-          <>
-            <strong>
-              <span>OPEN</span>{" "}
-            </strong>
-            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-          </>
-        );
-      }
-    } else {
-      if (props.isToday == true) {
-        status = (
-          <>
-            <strong>
-              <span>OPEN</span>{" "}
-            </strong>
-            - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
-          </>
-        );
-      }
-    }
+    //  else {
+    //   if (
+    //     props.isToday == true ||
+    //     props.day?.openIntervals[0].start ==
+    //       date.toLocaleString("en-GB", {
+    //         hour: "2-digit",
+    //         minute: "2-digit",
+    //         hour12: false,
+    //         timeZone: timeZone,
+    //       })
+    //   ) {
+    //     status = (
+    //       <>
+    //         <strong>
+    //           <span>OPEN</span>{" "}
+    //         </strong>
+    //         - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
+    //       </>
+    //     );
+    //   }
+    // }
   } else {
     if (props.isToday == true) {
       status = openDays.length ? (

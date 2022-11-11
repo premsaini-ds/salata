@@ -11,7 +11,6 @@ var style = {
   height: "310px",
 };
 const AboutSection = (foodItem: c_foodItems) => {
-  console.log(foodItem.prop2, "foodItem");
   return (
     <>
       <div className="about-sec">

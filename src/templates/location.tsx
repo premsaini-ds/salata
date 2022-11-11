@@ -287,7 +287,6 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       hoursSchema.push(openIntervalsSchema);
     }
   }
-  console.log(timezone, "timezone");
 
   return (
     <>

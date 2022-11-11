@@ -19,7 +19,7 @@ module.exports = {
       light: "#fafafa",
       green: "#348B31",
       dark_blue: "#09093e",
-      dark_red: "#008661",
+      dark_red: "#348B31",
     },
 
     fontFamily: {

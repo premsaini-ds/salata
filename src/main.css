@@ -212,7 +212,7 @@ h4, .h4{
   @apply text-xl md:text-2xl font-bebas_neue leading-8 font-normal;
 }
 .button{
-  @apply inline-flex align-top justify-center items-center py-2 lg:py-2 px-2 font-semibold bg-blue hover:bg-dark_blue text-white rounded min-w-[170px] md:min-w-[200px] transition-all duration-300 hover:no-underline;
+  @apply inline-flex align-top justify-center items-center py-2 lg:py-2 px-2 font-semibold bg-blue hover:bg-green text-white rounded min-w-[170px] md:min-w-[200px] transition-all duration-300 hover:no-underline;
 }
 .button span{
   @apply bg-red w-6 h-6
@@ -1086,3 +1086,4 @@ Footer
   cursor: pointer;
  
 }
+

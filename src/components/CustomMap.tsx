@@ -36,7 +36,7 @@ function CustomMap(coords: props) {
           lat: coords.prop && coords.prop.latitude,
           lng: coords.prop && coords.prop.longitude,
         }}
-        zoom={21}
+        zoom={16}
         options={{
           styles: [
             {

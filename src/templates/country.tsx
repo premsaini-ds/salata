@@ -46,7 +46,7 @@ export const config: TemplateConfig = {
     },
   },
 };
-
+const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
   currentUrl = document.slug.toString() + ".html";
   return document.slug.toString() + ".html";
@@ -219,7 +219,7 @@ const Country: Template<TemplateRenderProps> = ({
         baseUrl={relativePrefixToRoot}
       ></BreadCrumbs>
       <Banner
-        Name={name ? name : ""}
+        Name={name ? regionNames.of(name) : ""}
         TagLine={""}
         BackgroundImage={bannerImage}
         CtaButton={""}

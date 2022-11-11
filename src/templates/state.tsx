@@ -34,6 +34,7 @@ export const config: TemplateConfig = {
       "name",
       "description",
       "slug",
+      "c_addressRegionDisplayName",
       "dm_directoryParents.name",
       "dm_directoryParents.slug",
       "dm_directoryParents.meta.entityType",
@@ -48,6 +49,7 @@ export const config: TemplateConfig = {
   },
 };
 
+const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
   currentUrl = document.slug.toString() + ".html";
   return document.slug.toString() + ".html";
@@ -238,7 +240,7 @@ const State: Template<TemplateRenderProps> = ({
         address={{}}
       ></BreadCrumbs>
       <Banner
-        Name={name}
+        Name={c_addressRegionDisplayName ? c_addressRegionDisplayName : ""}
         TagLine={""}
         BackgroundImage={bannerImage}
         CtaButton={""}

@@ -188,7 +188,7 @@ const DayRow = (props: DayRow) => {
           - <span>CLOSES AT {props.day?.openIntervals[0].end} </span>
         </>
       );
-    }else if(props?.day.openIntervals[0].start > usDate){
+    } else if (props?.day.openIntervals[0].start > usDate) {
       status = (
         <>
           <strong>
@@ -197,9 +197,6 @@ const DayRow = (props: DayRow) => {
           - <span>OPENS AT {props.day?.openIntervals[0].start} </span>
         </>
       );
-    }
-
-
     }
 
     //  else {

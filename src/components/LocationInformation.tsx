@@ -147,9 +147,9 @@ const LocationInformation = (data: props) => {
             <h2 className="store-time-status">
               {time ? (
                 <OpenCloseTime
-                  hours={time}
-                  deliveryHours={delHours}
-                  timezone={timezone}
+                  hours={time ? time : {}}
+                  deliveryHours={delHours ? delHours : {}}
+                  timezone={timezone ? timezone : {}}
                 />
               ) : (
                 <></>
@@ -254,9 +254,9 @@ const LocationInformation = (data: props) => {
               </div>
               {time || delHours ? (
                 <Hours
-                  hours={time}
-                  deliveryHours={delHours}
-                  timezone={timezone}
+                  hours={time ? time : {}}
+                  deliveryHours={delHours ? delHours : {}}
+                  timezone={timezone ? timezone : {}}
                 />
               ) : (
                 <></>

@@ -14,7 +14,13 @@ const NearByLocation = (entities: props) => {
   const [data, setData] = useState([]);
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   useEffect(() => {
+    console.log(entities.prop.response, "entities.prop.response");
     let array: any = [];
+    const metersToMiles = (kilometers: number) => {
+      const miles = kilometers * 0.62137119;
+      return miles.toFixed(2);
+    };
+
     entities.prop.response.entities.map((i: any, index: any) => {
       array.push({
         slug: i.slug,
@@ -24,12 +30,9 @@ const NearByLocation = (entities: props) => {
         mainPhone: i.mainPhone,
         name: i.name,
         yextDisplayCoordinate: i.yextDisplayCoordinate,
-        distance:
-          entities.prop.response.distances[index].distanceMiles < 1
-            ? parseFloat(
-                entities.prop.response.distances[index].distanceMiles
-              ).toFixed(2)
-            : parseInt(entities.prop.response.distances[index].distanceMiles),
+        distance: metersToMiles(
+          entities.prop.response.distances[index].distanceKilometers
+        ),
         meta: i.meta.id,
       });
     });

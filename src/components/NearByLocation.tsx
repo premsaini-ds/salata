@@ -2,7 +2,6 @@ import * as React from "react";
 import { useEffect, useState } from "react";
 import OpenCloseTime from "./openClose";
 import "@splidejs/react-splide/css";
-
 import { Splide, SplideSlide } from "@splidejs/react-splide";
 import { Link } from "@yext/pages/components";
 type props = {
@@ -15,13 +14,8 @@ const NearByLocation = (entities: props) => {
   const [data, setData] = useState([]);
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   useEffect(() => {
-    console.log(entities.prop.response, "entities.prop.response");
     let array: any = [];
     entities.prop.response.entities.map((i: any, index: any) => {
-      const metersToMiles = (kilometers: number) => {
-        const miles = kilometers * 0.62137119;
-        return miles.toFixed(2);
-      };
       array.push({
         slug: i.slug,
         address: i.address,
@@ -30,13 +24,16 @@ const NearByLocation = (entities: props) => {
         mainPhone: i.mainPhone,
         name: i.name,
         yextDisplayCoordinate: i.yextDisplayCoordinate,
-        distance: metersToMiles(
-          entities.prop.response.distances[index].distanceMiles
-        ),
+        distance:
+          entities.prop.response.distances[index].distanceMiles < 1
+            ? parseFloat(
+                entities.prop.response.distances[index].distanceMiles
+              ).toFixed(2)
+            : parseInt(entities.prop.response.distances[index].distanceMiles),
         meta: i.meta.id,
       });
     });
-    console.log(array, "array");
+
     setData(array);
   }, [setData]);
 
@@ -198,7 +195,7 @@ const NearByLocation = (entities: props) => {
                           </p>
                         </div>
                         <div className="store-phone">
-                          <p>{e.distance}</p>
+                          <p>Distance in miles :-{e.distance}</p>
                         </div>
 
                         <OpenCloseTime

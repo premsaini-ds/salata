@@ -5,16 +5,11 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import LocationInformation from "../components/LocationInformation";
 import Header from "../components/header";
 import Footer from "../components/footer";
-
 import NearByLocation from "../components/NearByLocation";
 import Faq from "../components/Faq";
-
 import { nearByLocation } from "../types/nearByLocation";
 import { JsonLd } from "react-schemaorg";
-
 import AboutSection from "../components/About";
-
-import "../index.css";
 import "../main.css";
 import {
   Template,
@@ -26,8 +21,8 @@ import {
   TransformProps,
   HeadConfig,
 } from "@yext/pages";
-import { stagingBaseUrl } from "../constants";
-var currentUrl = "";
+import { stagingBaseUrl, liveFavIcon } from "../constants";
+
 export const config: TemplateConfig = {
   stream: {
     $id: "locations",
@@ -55,11 +50,9 @@ export const config: TemplateConfig = {
       "dm_directoryParents.meta.entityType",
       "dm_directoryParents.c_addressRegionDisplayName",
     ],
-
     filter: {
       entityTypes: ["restaurant"],
     },
-
     localization: {
       locales: ["en"],
       primary: false,
@@ -67,15 +60,25 @@ export const config: TemplateConfig = {
   },
 };
 
+var currentUrl: any = "";
+
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
+  currentUrl = document.slug.toString() + ".html";
   return document.slug.toString() + ".html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   document,
 }): HeadConfig => {
+  let metaDescription = document.c_metaDescription
+    ? document.c_metaDescription
+    : `Salata restaurant ` + document.name.toLowerCase();
+  let metaTitle = document.c_metaTitle
+    ? document.c_metaTitle
+    : `Salata restaurant ` + document.name.toLowerCase();
+
   return {
-    title: document.name,
+    title: metaTitle,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
@@ -91,11 +94,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "description",
-          content: `${
-            document.c_metaDescription
-              ? document.c_metaDescription
-              : "description"
-          }`,
+          content: metaDescription,
         },
       },
 
@@ -103,7 +102,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "title",
-          content: `${document.c_metaTitle ? document.c_metaTitle : "title"}`,
+          content: metaTitle,
         },
       },
       {
@@ -126,16 +125,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "link",
         attributes: {
           rel: "canonical",
-          href: "",
+          href: stagingBaseUrl + document.slug.toString() + ".html",
         },
       },
-      ///og tags
-
       {
         type: "meta",
         attributes: {
           property: "og:url",
-          content: "",
+          content: stagingBaseUrl + document.slug.toString() + ".html",
         },
       },
 
@@ -143,16 +140,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           property: "og:description",
-          content: `${
-            document.c_metaDescription ? document.c_metaDescription : ""
-          }`,
+          content: metaDescription,
         },
       },
       {
         type: "meta",
         attributes: {
           property: "og:title",
-          content: `${document.c_metaTitle ? document.c_metaTitle : ""}`,
+          content: metaTitle,
         },
       },
       {
@@ -160,10 +155,9 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           property: "og:image",
 
-          content: "https://www.salata.com/images/favicon.ico",
+          content: liveFavIcon,
         },
       },
-      /// twitter tag
 
       {
         type: "meta",
@@ -172,19 +166,12 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
           content: "summary",
         },
       },
-      {
-        type: "meta",
-        attributes: {
-          name: "twitter:url",
-          content: "",
-        },
-      },
 
       {
         type: "meta",
         attributes: {
           name: "twitter:description",
-          content: document.description ? document.description : "",
+          content: metaDescription,
         },
       },
 
@@ -192,7 +179,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:image",
-          content: "https://www.salata.com/images/favicon.ico",
+          content: liveFavIcon,
         },
       },
     ],
@@ -312,7 +299,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
   } else {
     url = `${document.slug.toString()}.html`;
   }
-  console.log(url, "url");
+
   breadcrumbScheme.push({
     "@type": "ListItem",
     position: 4,
@@ -321,7 +308,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
-  console.log(c_aboutData.photoGallery[0]?.url, 'c_aboutData"');
+
   return (
     <>
       <JsonLd<Restaurant>
@@ -436,11 +423,16 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         what3WordsAddress={"what3WordsAddress"}
         timezone={timezone}
       />
-      <AboutSection
-        prop={c_gallery_food}
-        prop2={c_aboutData}
-        CtaButton={c_ctabutton}
-      />
+
+      {c_gallery_food ? (
+        <AboutSection
+          prop={c_gallery_food}
+          prop2={c_aboutData}
+          CtaButton={c_ctabutton}
+        />
+      ) : (
+        <></>
+      )}
 
       {c_gallery_food ? (
         <>
@@ -450,13 +442,18 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       ) : (
         <></>
       )}
+      {c_relatedfaq ? <Faq prop={c_relatedfaq} /> : <></>}
 
-      <Faq prop={c_relatedfaq} />
-      <NearByLocation
-        prop={externalApiData}
-        coords={yextDisplayCoordinate}
-        slug={slug}
-      />
+      {externalApiData ? (
+        <NearByLocation
+          prop={externalApiData}
+          coords={yextDisplayCoordinate}
+          slug={slug}
+        />
+      ) : (
+        <></>
+      )}
+
       <Footer />
     </>
   );

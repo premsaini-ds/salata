@@ -207,11 +207,15 @@ const LocationInformation = (data: props) => {
         <div className="container">
           <div className="w-full text-center pb-4 lg:pb-5">
             <h2 className="store-time-status">
-              <OpenCloseTime
-                hours={time ? time : {}}
-                deliveryHours={delHours ? delHours : {}}
-                timezone={timezone ? timezone : {}}
-              />
+              {time ? (
+                <OpenCloseTime
+                  hours={time ? time : {}}
+                  deliveryHours={delHours ? delHours : {}}
+                  timezone={timezone ? timezone : {}}
+                />
+              ) : (
+                <></>
+              )}
             </h2>
           </div>
 
@@ -263,7 +267,10 @@ const LocationInformation = (data: props) => {
                       />
                     </svg>
                     <p>
-                      <Link href={`tel:${phone}`} rel="noopener noreferrer">
+                      <Link
+                        href={`tel:${data.phone}`}
+                        rel="noopener noreferrer"
+                      >
                         {data.phone ? data.phone : ""}
                       </Link>
                     </p>
@@ -303,18 +310,20 @@ const LocationInformation = (data: props) => {
                   </div>
                 </div>
               </div>
-
-              <Hours
-                hours={time ? time : {}}
-                deliveryHours={delHours ? delHours : {}}
-                timezone={timezone ? timezone : {}}
-              />
+              {time || delHours ? (
+                <Hours
+                  hours={time ? time : {}}
+                  deliveryHours={delHours ? delHours : {}}
+                  timezone={timezone ? timezone : {}}
+                />
+              ) : (
+                <></>
+              )}
             </div>
 
             <div className="box map-info">
               <div className="inner-box">
                 <CustomMap prop={coordinates} />
-                {/* <CustomMap address={data.address} /> */}
               </div>
             </div>
           </div>

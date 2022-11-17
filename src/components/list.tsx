@@ -5,25 +5,35 @@ import "@splidejs/react-splide/css";
 type c_foodItems = {
   prop: any;
 };
-var style = {
-  width: "310px",
-  height: "310px",
-};
+
+var desktopSliderType: string = "";
+var tabSliderType: string = "";
+var mobileSliderType: string = "";
+var desktopSliderCenter: string = "";
+var tabSliderCenter: string = "";
+var mobileSliderCenter: string = "";
 const List = (foodItem: c_foodItems) => {
+  let length = foodItem.prop.length;
+  desktopSliderType = length > 4 ? "loop" : "slide";
+  tabSliderType = length > 2 ? "loop" : "slide";
+  mobileSliderType = length > 1 ? "loop" : "slide";
+  desktopSliderCenter = length > 4 ? "" : "center-4";
+  tabSliderCenter = length > 2 ? "" : "center-2";
+  mobileSliderCenter = length > 1 ? "" : "center-1";
+
   return (
     <>
-      <div className="food-list">
+      <div
+        className={`food-list ${desktopSliderCenter} ${tabSliderCenter} ${mobileSliderCenter}`}
+      >
         <div className="container">
           <div className="w-full text-center">
             <h3 className="sec_heading">OUR FOOD</h3>
           </div>
-
           <Splide
             options={{
               rewind: false,
-
-              type: "loop",
-
+              type: desktopSliderType,
               perPage: 4,
               perMove: 1,
               arrows: true,
@@ -35,11 +45,12 @@ const List = (foodItem: c_foodItems) => {
                   perPage: 2,
                   drag: true,
                   pagination: true,
-                  type: "loop",
+                  type: tabSliderType,
                 },
                 575: {
                   perPage: 1,
                   padding: "45px",
+                  type: mobileSliderType,
                 },
               },
             }}
@@ -55,7 +66,7 @@ const List = (foodItem: c_foodItems) => {
                         alt={i.description}
                         title={i.description}
                       />
-                      <h4>{i.description ? i.description : ""}</h4>
+                      {i.description ? <h4>{i.description}</h4> : <></>}
                     </div>
                   </SplideSlide>
                 );

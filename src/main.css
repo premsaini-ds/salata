@@ -662,10 +662,16 @@ About
 /* --------------------------------------------
 Food List
 -----------------------------------------------*/
-
 .food-list{
   @apply pt-5 pb-0 lg:pt-14 lg:pb-10;
 }
+.food-list.center-4 .splide__arrows{
+  @apply xl:hidden
+} 
+.food-list.center-4 .splide__list{
+  @apply xl:justify-center
+}
+
 .food-list .splide li{
   @apply px-0 sm:px-[15px];
 }
@@ -703,7 +709,6 @@ Food List
 .splide .splide__arrows .splide__arrow:hover svg{
   @apply lg:fill-white;
 }
-
 /* --------------------------------------------
 App Promotion
 -----------------------------------------------*/

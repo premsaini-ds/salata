@@ -78,14 +78,23 @@ const AboutSection = (foodItem: c_foodItems) => {
           <div className="w-full overflow-hidden overflow-visible lg:w-3/5 xl:w-[50.6%] about-content ml-auto">
             <b>{foodItem.prop2.title}</b>
             <p>{foodItem.prop2.description}</p>
-            {foodItem.CtaButton.label && foodItem.CtaButton.link ? (
+            {foodItem.CtaButton &&
+            foodItem.CtaButton.label &&
+            foodItem.CtaButton &&
+            foodItem.CtaButton.link ? (
               <div className="cta_btn">
                 <Link
                   rel="noopener noreferrer"
-                  href={foodItem.CtaButton ? foodItem.CtaButton.link : "#"}
+                  href={
+                    foodItem.CtaButton && foodItem.CtaButton.link
+                      ? foodItem.CtaButton.link
+                      : "#"
+                  }
                   className="button"
                 >
-                  {foodItem.CtaButton ? foodItem.CtaButton.label : ""}
+                  {foodItem.CtaButton && foodItem.CtaButton.label
+                    ? foodItem.CtaButton.label
+                    : ""}
                 </Link>
               </div>
             ) : (

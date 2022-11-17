@@ -46,7 +46,10 @@ const Banner = (Data: props) => {
         <div className="container text-center">
           <h1>{Data.Name ? Data.Name : ""}</h1>
           <p>{Data.TagLine ? Data.TagLine : ""}</p>
-          {Data.CtaButton.label && Data.CtaButton.link ? (
+          {Data.CtaButton &&
+          Data.CtaButton.label &&
+          Data.CtaButton &&
+          Data.CtaButton.link ? (
             <div className="cta_btn">
               <Link
                 rel="noopener noreferrer"
@@ -54,7 +57,9 @@ const Banner = (Data: props) => {
                 href={Data.CtaButton ? Data.CtaButton.link : "#"}
                 className="button"
               >
-                {Data.CtaButton ? Data.CtaButton.label : ""}
+                {Data.CtaButton && Data.CtaButton.label
+                  ? Data.CtaButton.label
+                  : ""}
               </Link>
             </div>
           ) : (

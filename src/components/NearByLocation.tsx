@@ -15,8 +15,31 @@ const NearByLocation = (entities: props) => {
   const [data, setData] = useState([]);
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   useEffect(() => {
-    setData(entities.prop.response.entities);
+    console.log(entities.prop.response, "entities.prop.response");
+    let array: any = [];
+    entities.prop.response.entities.map((i: any, index: any) => {
+      const metersToMiles = (kilometers: number) => {
+        const miles = kilometers * 0.62137119;
+        return miles.toFixed(2);
+      };
+      array.push({
+        slug: i.slug,
+        address: i.address,
+        hours: i.hours,
+        geocodedCoordinate: i.geocodedCoordinate,
+        mainPhone: i.mainPhone,
+        name: i.name,
+        yextDisplayCoordinate: i.yextDisplayCoordinate,
+        distance: metersToMiles(
+          entities.prop.response.distances[index].distanceMiles
+        ),
+        meta: i.meta.id,
+      });
+    });
+    console.log(array, "array");
+    setData(array);
   }, [setData]);
+
   function getDirectionUrl(entitiy: any) {
     var address_string = "";
     address_string =
@@ -173,6 +196,9 @@ const NearByLocation = (entities: props) => {
                               {e.mainPhone}
                             </Link>
                           </p>
+                        </div>
+                        <div className="store-phone">
+                          <p>{e.distance}</p>
                         </div>
 
                         <OpenCloseTime

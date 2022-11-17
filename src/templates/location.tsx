@@ -5,26 +5,20 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import LocationInformation from "../components/LocationInformation";
 import Header from "../components/header";
 import Footer from "../components/footer";
-import Card from "../components/card";
-import AddPromotion from "../components/AddPromotion";
+
 import NearByLocation from "../components/NearByLocation";
 import Faq from "../components/Faq";
-import FavoriteFood from "../components/FavoriteFood";
+
 import { nearByLocation } from "../types/nearByLocation";
 import { JsonLd } from "react-schemaorg";
-import favicon from "../images/favicon-live.png";
+
 import AboutSection from "../components/About";
-import {
-  AnalyticsProvider,
-  AnalyticsScopeProvider,
-} from "@yext/pages/components";
 
 import "../index.css";
 import "../main.css";
 import {
   Template,
   GetPath,
-  GetRedirects,
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
@@ -32,6 +26,7 @@ import {
   TransformProps,
   HeadConfig,
 } from "@yext/pages";
+import { stagingBaseUrl } from "../constants";
 var currentUrl = "";
 export const config: TemplateConfig = {
   stream: {
@@ -77,8 +72,6 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   return {
@@ -99,7 +92,9 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           name: "description",
           content: `${
-            document.c_metaDescription ? document.c_metaDescription : ""
+            document.c_metaDescription
+              ? document.c_metaDescription
+              : "description"
           }`,
         },
       },
@@ -108,7 +103,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "title",
-          content: `${document.c_metaTitle ? document.c_metaTitle : ""}`,
+          content: `${document.c_metaTitle ? document.c_metaTitle : "title"}`,
         },
       },
       {
@@ -252,44 +247,162 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
   } = document;
   let templateData = { document: document, __meta: __meta };
   let hoursSchema = [];
+  let breadcrumbScheme = [];
 
-  for (var key in hours) {
-    if (hours.hasOwnProperty(key)) {
-      let openIntervalsSchema = "";
-      if (key !== "holidayHours") {
-        if (hours[key].isClosed) {
-          openIntervalsSchema = {
-            "@type": "OpeningHoursSpecification",
-            dayOfWeek: key,
-          };
-        } else {
-          let end = "";
-          let start = "";
-          if (typeof hours[key].openIntervals != "undefined") {
-            let openIntervals = hours[key].openIntervals;
-            for (var o in openIntervals) {
-              if (openIntervals.hasOwnProperty(o)) {
-                end = openIntervals[o].end;
-                start = openIntervals[o].start;
+  if (hours) {
+    for (var key in hours) {
+      if (hours.hasOwnProperty(key)) {
+        let openIntervalsSchema: any = "";
+        if (key !== "holidayHours") {
+          if (hours[key].isClosed) {
+            openIntervalsSchema = {
+              "@type": "OpeningHoursSpecification",
+              dayOfWeek: key,
+            };
+          } else {
+            let end = "";
+            let start = "";
+            if (typeof hours[key].openIntervals != "undefined") {
+              let openIntervals = hours[key].openIntervals;
+              for (var o in openIntervals) {
+                if (openIntervals.hasOwnProperty(o)) {
+                  end = openIntervals[o].end;
+                  start = openIntervals[o].start;
+                }
               }
             }
+            openIntervalsSchema = {
+              "@type": "OpeningHoursSpecification",
+              closes: end,
+              dayOfWeek: key,
+              opens: start,
+            };
           }
-          openIntervalsSchema = {
-            "@type": "OpeningHoursSpecification",
-            closes: end,
-            dayOfWeek: key,
-            opens: start,
-          };
+        } else {
         }
-      } else {
-      }
 
-      hoursSchema.push(openIntervalsSchema);
+        hoursSchema.push(openIntervalsSchema);
+      }
     }
   }
-
+  dm_directoryParents &&
+    dm_directoryParents.map((i: any, index: any) => {
+      if (index != 0) {
+        breadcrumbScheme.push({
+          "@type": "ListItem",
+          position: index,
+          item: {
+            "@id": `${stagingBaseUrl}${i.slug}.html`,
+            name: i.name,
+          },
+        });
+      }
+    });
+  let url = "";
+  let Name: any = document.name.toLowerCase();
+  let string: any = Name.toString();
+  let removeSpecialCharacters = string.replace(
+    /[&\/\\#^+()$~%.'":*?<>{}!@]/g,
+    ""
+  );
+  let result: any = removeSpecialCharacters.replaceAll("  ", "-");
+  let finalString: any = result.replaceAll(" ", "-");
+  if (!document.slug) {
+    url = `${document.id}-${result}.html`;
+  } else {
+    url = `${document.slug.toString()}.html`;
+  }
+  console.log(url, "url");
+  breadcrumbScheme.push({
+    "@type": "ListItem",
+    position: 4,
+    item: {
+      "@id": `${stagingBaseUrl}${url}`,
+      name: document.name,
+    },
+  });
+  console.log(c_aboutData.photoGallery[0]?.url, 'c_aboutData"');
   return (
     <>
+      <JsonLd<Restaurant>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "Restaurant",
+          name: "Favorite Chicken & Ribs",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: address.line1,
+            addressLocality: address.city,
+            addressRegion: address.region,
+            postalCode: address.postalCode,
+            addressCountry: address.countryCode,
+          },
+          openingHoursSpecification: hours ? hoursSchema : [],
+        }}
+      />
+      <JsonLd<Organization>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Salata Limited",
+          url: "https://www.salata.com/",
+          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
+            // addressLocality: "Clacton-on-Sea",
+            addressRegion: "Texas",
+            postalCode: "77084",
+            addressCountry: "United states ",
+          },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "contact",
+            telephone: "(844) 725-2821",
+          },
+          sameAs: [
+            "https://www.facebook.com/SalataSalads",
+            "https://www.instagram.com/salatasalads/",
+            "https://twitter.com/salatasalads",
+          ],
+        }}
+      />
+
+      {c_relatedfaq ? (
+        <>
+          <JsonLd<FAQPage>
+            item={{
+              "@context": "https://schema.org",
+              "@type": "FAQPage",
+
+              mainEntity:
+                c_relatedfaq &&
+                c_relatedfaq.map((i: any) => {
+                  return {
+                    "@type": "Question",
+                    name: i.question,
+                    acceptedAnswer: {
+                      "@type": "Answer",
+                      text: `<p>${i.answer}</p>`,
+                    },
+                  };
+                }),
+            }}
+          />
+        </>
+      ) : (
+        <></>
+      )}
+
+      <JsonLd<BreadcrumbList>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+
+          itemListElement: breadcrumbScheme,
+        }}
+      />
+
       <Header />
       <BreadCrumbs
         name={name}
@@ -300,7 +413,9 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       <Banner
         Name={name}
         TagLine={""}
-        BackgroundImage={""}
+        BackgroundImage={
+          c_aboutData.photoGallery ? c_aboutData.photoGallery[0].url : ""
+        }
         CtaButton={c_ctabutton}
         template={"location"}
       />
@@ -336,11 +451,6 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         <></>
       )}
 
-      {/* <AddPromotion
-        c_title={c_aboutData.title}
-        c_description1={c_aboutData.description}
-        c_backgroundImages={c_aboutData.photoGallery}
-      /> */}
       <Faq prop={c_relatedfaq} />
       <NearByLocation
         prop={externalApiData}

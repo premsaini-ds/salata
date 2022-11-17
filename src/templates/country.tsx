@@ -6,7 +6,7 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import "../index.css";
 import bannerImage from "../images/app-bg.png";
 import favicon from "../images/favicon-live.png";
-
+import { JsonLd } from "react-schemaorg";
 import {
   Template,
   GetPath,
@@ -75,7 +75,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: 'https://www.salata.com/images/favicon.ico',
+          href: "https://www.salata.com/images/favicon.ico",
         },
       },
       {
@@ -209,9 +209,36 @@ const Country: Template<TemplateRenderProps> = ({
       </div>
     );
   });
-  console.log(dm_directoryParents, "dm_directoryChildren");
+
   return (
     <>
+      <JsonLd<Organization>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Salata Limited",
+          url: "https://www.salata.com/",
+          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
+            // addressLocality: "Clacton-on-Sea",
+            addressRegion: "Texas",
+            postalCode: "77084",
+            addressCountry: "United states ",
+          },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "contact",
+            telephone: "(844) 725-2821",
+          },
+          sameAs: [
+            "https://www.facebook.com/SalataSalads",
+            "https://www.instagram.com/salatasalads/",
+            "https://twitter.com/salatasalads",
+          ],
+        }}
+      />
       <Header />
       <BreadCrumbs
         name={name}

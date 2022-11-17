@@ -8,6 +8,7 @@ import { stagingBaseUrl } from "../constants";
 import bannerImage from "../images/app-bg.png";
 import "../index.css";
 import favicon from "../images/favicon-live.png";
+import { JsonLd } from "react-schemaorg";
 import {
   Template,
   GetPath,
@@ -229,9 +230,36 @@ const State: Template<TemplateRenderProps> = ({
       </div>
     );
   });
-  console.log(dm_directoryChildren, "dm_directoryChildren");
+
   return (
     <>
+      <JsonLd<Organization>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "Organization",
+          name: "Salata Limited",
+          url: "https://www.salata.com/",
+          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          address: {
+            "@type": "PostalAddress",
+            streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
+            // addressLocality: "Clacton-on-Sea",
+            addressRegion: "Texas",
+            postalCode: "77084",
+            addressCountry: "United states ",
+          },
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "contact",
+            telephone: "(844) 725-2821",
+          },
+          sameAs: [
+            "https://www.facebook.com/SalataSalads",
+            "https://www.instagram.com/salatasalads/",
+            "https://twitter.com/salatasalads",
+          ],
+        }}
+      />
       <Header />
       <BreadCrumbs
         name={name}

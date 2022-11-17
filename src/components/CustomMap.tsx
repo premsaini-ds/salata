@@ -91,25 +91,3 @@ function CustomMap(coords: props) {
 }
 
 export default CustomMap;
-
-// import * as React from "react";
-
-// type Address = {
-//   address: any;
-// };
-
-// const IframeMap = (props: Address) => {
-//   const { address } = props;
-//   console.log(address, "dhgfgsdfjksh");
-//   return (
-//     <>
-//       <iframe
-//         style={{ width: "100%", height: "100%" }}
-//         className="h-[600px] w-full md:h-[500px] xl:h-full"
-//         src={`https://www.google.com/maps/embed/v1/place?q=${address.line1},${address.line2},${address.city},${address.region},${address.postalCode},${address.countryCode}&language=en&key=AIzaSyDZNQlSlEIkFAct5VzUtsP4dSbvOr2bE18`}
-//       ></iframe>
-//     </>
-//   );
-// };
-
-// export default IframeMap;

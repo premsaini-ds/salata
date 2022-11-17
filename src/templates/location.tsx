@@ -462,7 +462,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         <NearByLocation
           prop={externalApiData}
           coords={yextDisplayCoordinate}
-          slug={slug}
+          slug={url}
         />
       ) : (
         <></>

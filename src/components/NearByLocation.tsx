@@ -139,8 +139,9 @@ const NearByLocation = (entities: props) => {
                 } else {
                   origin = e.address.country;
                 }
+                console.log(entities.slug, e.slug, "hkhhgdh");
 
-                if (entities.slug + ".html" != e.slug && e.closed != true) {
+                if (entities.slug != e.slug && e.closed != true) {
                   return (
                     <SplideSlide key={index}>
                       <div className="near-location">

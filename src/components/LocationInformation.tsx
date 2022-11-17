@@ -138,7 +138,7 @@ const LocationInformation = (data: props) => {
     cid: "de598c07-b53c-407a-89f8-adc289ae9d62",
     cv: "2",
   };
-
+  console.log(timezone, "timezone");
   return (
     <>
       <div className="location-information">

@@ -14,4 +14,4 @@ export const cookieEndText = "for more information.";
 export const CookieprivacypolicyUrl = "https://www.salata.com/privacy";
 export const bannerText = "Favorite - Britain's Tastiest Chicken!";
 export const timeZone = "America/Los_Angeles";
-export const liveFavIcon = "https://www.salata.com/images/favicon.ic";
+export const liveFavIcon = "https://www.salata.com/images/favicon.ico";

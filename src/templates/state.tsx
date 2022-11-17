@@ -3,24 +3,18 @@ import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import BreadCrumbs from "../components/BreadCrumbs";
-import GetDirection from "../components/GetDirection";
-import { stagingBaseUrl } from "../constants";
 import bannerImage from "../images/app-bg.png";
-import "../index.css";
-import favicon from "../images/favicon-live.png";
 import { JsonLd } from "react-schemaorg";
 import {
   Template,
   GetPath,
-  GetRedirects,
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
   GetHeadConfig,
   HeadConfig,
 } from "@yext/pages";
-import Logo from "../images/logo.svg";
-var currentUrl = "";
+import { stagingBaseUrl, liveFavIcon } from "../constants";
 
 export const config: TemplateConfig = {
   stream: {
@@ -42,6 +36,9 @@ export const config: TemplateConfig = {
       "dm_directoryChildren.name",
       "dm_directoryChildren.slug",
       "dm_directoryChildren.dm_directoryChildrenCount",
+      "dm_directoryChildren.dm_directoryChildren.name",
+      "dm_directoryChildren.dm_directoryChildren.slug",
+      "dm_directoryChildren.dm_directoryChildren.id",
     ],
     localization: {
       locales: ["en"],
@@ -50,26 +47,22 @@ export const config: TemplateConfig = {
   },
 };
 
-const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  currentUrl = document.slug.toString() + ".html";
   return document.slug.toString() + ".html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   let metaDescription = document.c_metaDescription
     ? document.c_metaDescription
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
   let metaTitle = document.c_metaTitle
     ? document.c_metaTitle
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
 
   return {
-    title: document.name,
+    title: metaTitle,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
@@ -78,7 +71,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: "https://www.salata.com/images/favicon.ico",
+          href: liveFavIcon,
         },
       },
       {
@@ -100,7 +93,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "author",
-          content: "FAVORITE CHICKEN & RIBS",
+          content: "Salata Restaurant Online Ordering Home",
         },
       },
 
@@ -119,17 +112,16 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
           href: ` ${
             document.c_canonical
               ? document.c_canonical
-              : `${stagingBaseUrl}/${currentUrl}`
+              : `${stagingBaseUrl}${document.slug.toString()}.html`
           }`,
         },
       },
-      ///og tags
 
       {
         type: "meta",
         attributes: {
           property: "og:url",
-          content: `${stagingBaseUrl}/${currentUrl}`,
+          content: `${stagingBaseUrl}${document.slug.toString()}.html`,
         },
       },
 
@@ -137,7 +129,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "og:image",
-          content: `${Logo}`,
+          content: liveFavIcon,
         },
       },
 
@@ -166,14 +158,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:url",
-          content: `${stagingBaseUrl}/${currentUrl}`,
+          content: `${stagingBaseUrl}${document.slug.toString()}.html`,
         },
       },
       {
         type: "meta",
         attributes: {
           name: "twitter:image",
-          content: `${Logo}`,
+          content: liveFavIcon,
         },
       },
       {
@@ -194,43 +186,97 @@ const State: Template<TemplateRenderProps> = ({
 }) => {
   const {
     name,
-    description,
-
     dm_directoryParents,
     dm_directoryChildren,
     c_addressRegionDisplayName,
   } = document;
 
-  var sortedChildren = dm_directoryChildren.sort(function (a: any, b: any) {
-    var a = a.name;
-    var b = b.name;
-    return a < b ? -1 : a > b ? 1 : 0;
+  console.log(dm_directoryChildren, "dm_directoryChildren");
+  const childrenDivs =
+    dm_directoryChildren &&
+    dm_directoryChildren.map((entity: any) => {
+      let url: any = "";
+
+      url = document.slug.toString();
+      let url1: any = "";
+      url1 = url.replace(/(\b\S.+\b)(?=.*\1)/g, "").trim();
+      if (entity.dm_directoryChildrenCount == 1) {
+        if (
+          entity.dm_directoryChildren &&
+          entity.dm_directoryChildren[0].slug
+        ) {
+          console.log(
+            entity.dm_directoryChildren[0].slug,
+            "entity.dm_directoryChildren[0].slug"
+          );
+          return (
+            <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
+              <a
+                key={entity.slug}
+                href={"/" + entity.dm_directoryChildren[0].slug + ".html"}
+                className="hover:text-red"
+              >
+                {entity.name} ({entity.dm_directoryChildrenCount})
+              </a>
+            </div>
+          );
+        } else {
+          let name: any = entity.dm_directoryChildren[0].name.toLowerCase();
+          let string: any = name.toString();
+          let removeSpecialCharacters = string.replace(
+            /[&\/\\#^+()$~%.'":*?<>{}!@]/g,
+            ""
+          );
+          let result: any = removeSpecialCharacters.replaceAll("  ", "-");
+          let finalString: any = result.replaceAll(" ", "-");
+          url = `${entity.dm_directoryChildren[0].id}-${finalString}.html`;
+          return (
+            <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
+              <a key={entity.slug} href={"/" + url} className="hover:text-red">
+                {entity.name} ({entity.dm_directoryChildrenCount})
+              </a>
+            </div>
+          );
+        }
+      } else {
+        return (
+          <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
+            <a
+              key={entity.slug}
+              href={"/" + entity.slug + ".html"}
+              className="hover:text-red"
+            >
+              {entity.name} ({entity.dm_directoryChildrenCount})
+            </a>
+          </div>
+        );
+      }
+    });
+
+  let breadcrumbScheme: any = [];
+  let currentIndex: any = 0;
+  dm_directoryParents &&
+    dm_directoryParents.map((i: any, index: any) => {
+      currentIndex = index;
+      if (index != 0) {
+        breadcrumbScheme.push({
+          "@type": "ListItem",
+          position: index,
+          item: {
+            "@id": `${stagingBaseUrl}${i.slug}.html`,
+            name: i.name,
+          },
+        });
+      }
+    });
+  breadcrumbScheme.push({
+    "@type": "ListItem",
+    position: currentIndex + 1,
+    item: {
+      "@id": `${stagingBaseUrl}${document.slug.toString()}.html`,
+      name: document.name,
+    },
   });
-
-  let slugString = "/";
-  document.dm_directoryParents.forEach((e: any) => {
-    slugString = e.slug + "/";
-  });
-
-  const childrenDivs = dm_directoryChildren.map((entity: any) => {
-    let url: any = "";
-    url = document.slug.toString();
-    let url1: any = "";
-    url1 = url.replace(/(\b\S.+\b)(?=.*\1)/g, "").trim();
-
-    return (
-      <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
-        <a
-          key={entity.slug}
-          href={"/" + entity.slug + ".html"}
-          className="hover:text-red"
-        >
-          {entity.name} ({entity.dm_directoryChildrenCount})
-        </a>
-      </div>
-    );
-  });
-
   return (
     <>
       <JsonLd<Organization>
@@ -239,7 +285,7 @@ const State: Template<TemplateRenderProps> = ({
           "@type": "Organization",
           name: "Salata Limited",
           url: "https://www.salata.com/",
-          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          logo: liveFavIcon,
           address: {
             "@type": "PostalAddress",
             streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
@@ -258,6 +304,15 @@ const State: Template<TemplateRenderProps> = ({
             "https://www.instagram.com/salatasalads/",
             "https://twitter.com/salatasalads",
           ],
+        }}
+      />
+
+      <JsonLd<BreadcrumbList>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+
+          itemListElement: breadcrumbScheme,
         }}
       />
       <Header />

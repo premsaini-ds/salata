@@ -3,23 +3,19 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import Banner from "../components/banner";
 import BreadCrumbs from "../components/BreadCrumbs";
-import "../index.css";
 import bannerImage from "../images/app-bg.png";
-import favicon from "../images/favicon-live.png";
 import { JsonLd } from "react-schemaorg";
+import { stagingBaseUrl, liveFavIcon } from "../constants";
 import {
   Template,
   GetPath,
-  GetRedirects,
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
   GetHeadConfig,
   HeadConfig,
 } from "@yext/pages";
-import { stagingBaseUrl } from "../constants";
-import Logo from "../images/logo.svg";
-var currentUrl = "";
+
 export const config: TemplateConfig = {
   stream: {
     $id: "country",
@@ -48,25 +44,21 @@ export const config: TemplateConfig = {
 };
 const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  currentUrl = document.slug.toString() + ".html";
   return document.slug.toString() + ".html";
-  // return "index.html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   let metaDescription = document.c_metaDescription
     ? document.c_metaDescription
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
   let metaTitle = document.c_metaTitle
     ? document.c_metaTitle
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
 
   return {
-    title: document.name,
+    title: metaTitle,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
@@ -75,7 +67,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: "https://www.salata.com/images/favicon.ico",
+          href: liveFavIcon,
         },
       },
       {
@@ -97,7 +89,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "author",
-          content: "FAVORITE CHICKEN & RIBS",
+          content: "Salata Restaurant Online Ordering Home",
         },
       },
 
@@ -116,17 +108,16 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
           href: ` ${
             document.c_canonical
               ? document.c_canonical
-              : `${stagingBaseUrl}${currentUrl}`
+              : stagingBaseUrl + document.slug.toString() + ".html"
           }`,
         },
       },
-      ///og tags
 
       {
         type: "meta",
         attributes: {
           property: "og:url",
-          content: stagingBaseUrl + currentUrl,
+          content: stagingBaseUrl + document.slug.toString() + ".html",
         },
       },
 
@@ -134,25 +125,23 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           property: "og:description",
-          content: `${metaDescription}`,
+          content: metaDescription,
         },
       },
       {
         type: "meta",
         attributes: {
           property: "og:title",
-          content: `${metaTitle}`,
+          content: metaTitle,
         },
       },
       {
         type: "meta",
         attributes: {
           name: "og:image",
-          content: `${Logo}`,
+          content: liveFavIcon,
         },
       },
-
-      /// twitter tag
 
       {
         type: "meta",
@@ -165,14 +154,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:url",
-          content: stagingBaseUrl + currentUrl,
+          content: stagingBaseUrl + document.slug.toString() + ".html",
         },
       },
       {
         type: "meta",
         attributes: {
           name: "twitter:image",
-          content: `${Logo}`,
+          content: liveFavIcon,
         },
       },
       {
@@ -188,26 +177,34 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 
 const Country: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
-  path,
   document,
 }) => {
-  const { description, dm_directoryChildren, dm_directoryParents, c_tagline } =
-    document;
+  const { dm_directoryChildren, dm_directoryParents, name } = document;
 
-  const { name } = document;
+  const childrenDivs =
+    dm_directoryChildren &&
+    dm_directoryChildren.map((entity: any) => {
+      return (
+        <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
+          <a
+            key={entity.slug}
+            href={"/" + entity.slug + ".html"}
+            className="hover:text-red"
+          >
+            {entity.name} ({entity.dm_directoryChildrenCount})
+          </a>
+        </div>
+      );
+    });
 
-  const childrenDivs = dm_directoryChildren.map((entity: any) => {
-    return (
-      <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
-        <a
-          key={entity.slug}
-          href={"/" + entity.slug + ".html"}
-          className="hover:text-red"
-        >
-          {entity.name} ({entity.dm_directoryChildrenCount})
-        </a>
-      </div>
-    );
+  let breadcrumbScheme = [];
+  breadcrumbScheme.push({
+    "@type": "ListItem",
+    position: 1,
+    item: {
+      "@id": `${stagingBaseUrl}${document.slug.toString()}.html`,
+      name: document.name,
+    },
   });
 
   return (
@@ -218,7 +215,7 @@ const Country: Template<TemplateRenderProps> = ({
           "@type": "Organization",
           name: "Salata Limited",
           url: "https://www.salata.com/",
-          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          logo: liveFavIcon,
           address: {
             "@type": "PostalAddress",
             streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
@@ -239,6 +236,15 @@ const Country: Template<TemplateRenderProps> = ({
           ],
         }}
       />
+      <JsonLd<BreadcrumbList>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+
+          itemListElement: breadcrumbScheme,
+        }}
+      />
+
       <Header />
       <BreadCrumbs
         name={name}

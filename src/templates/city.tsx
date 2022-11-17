@@ -3,20 +3,12 @@ import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import BreadCrumbs from "../components/BreadCrumbs";
-import GetDirection from "../components/GetDirection";
-import { stagingBaseUrl } from "../constants";
 import bannerImage from "../images/app-bg.png";
-import favicon from "../images/favicon-live.png";
-import { Link } from "@yext/pages/components";
-import Logo from "../images/logo.svg";
+import { stagingBaseUrl, liveFavIcon } from "../constants";
 import { JsonLd } from "react-schemaorg";
-import "../index.css";
-var currentUrl = "";
-import "../index.css";
 import {
   Template,
   GetPath,
-  GetRedirects,
   TemplateConfig,
   TemplateProps,
   TemplateRenderProps,
@@ -24,7 +16,6 @@ import {
   HeadConfig,
 } from "@yext/pages";
 
-var currentUrl = "";
 export const config: TemplateConfig = {
   stream: {
     $id: "city",
@@ -58,33 +49,21 @@ export const config: TemplateConfig = {
 };
 
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  // let slugString = "";
-  // document.dm_directoryParents.forEach((e: any) => {
-  //   if (e.sulg != "restaurants" && e.slug != "gb") {
-  //     slugString += e.slug + "/";
-  //     slugString = slugString.replace("restaurants", "");
-  //   }
-  // });
-
-  // currentUrl = slugString + document.slug + ".html";
-
   return document.slug + ".html";
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
-  relativePrefixToRoot,
-  path,
   document,
 }): HeadConfig => {
   let metaDescription = document.c_metaDescription
     ? document.c_metaDescription
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
   let metaTitle = document.c_metaTitle
     ? document.c_metaTitle
-    : "Favorite Fried Chicken stores in " + document.name;
+    : `Salata restaurant ` + document.name.toLowerCase();
 
   return {
-    title: document.name,
+    title: metaTitle,
     charset: "UTF-8",
     viewport: "width=device-width, initial-scale=1",
     tags: [
@@ -93,7 +72,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         attributes: {
           rel: "icon",
           type: "image/x-icon",
-          href: "https://www.salata.com/images/favicon.ico",
+          href: liveFavIcon,
         },
       },
       {
@@ -115,7 +94,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "author",
-          content: "FAVORITE CHICKEN & RIBS",
+          content: "Salata Restaurant Online Ordering Home",
         },
       },
 
@@ -134,17 +113,24 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
           href: ` ${
             document.c_canonical
               ? document.c_canonical
-              : stagingBaseUrl + currentUrl
+              : `${stagingBaseUrl}${document.slug.toString()}.html`
           }`,
         },
       },
-      ///og tags
 
       {
         type: "meta",
         attributes: {
           property: "og:url",
-          content: stagingBaseUrl + currentUrl,
+          content: `${stagingBaseUrl}${document.slug.toString()}.html`,
+        },
+      },
+
+      {
+        type: "meta",
+        attributes: {
+          name: "og:image",
+          content: liveFavIcon,
         },
       },
 
@@ -165,24 +151,6 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
       {
         type: "meta",
         attributes: {
-          name: "og:image",
-          content: `${Logo}`,
-        },
-      },
-
-      /// twitter tag
-
-      {
-        type: "meta",
-        attributes: {
-          name: "twitter:image",
-          content: `${Logo}`,
-        },
-      },
-
-      {
-        type: "meta",
-        attributes: {
           name: "twitter:card",
           content: "summary",
         },
@@ -191,10 +159,16 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "meta",
         attributes: {
           name: "twitter:url",
-          content: stagingBaseUrl + currentUrl,
+          content: `${stagingBaseUrl}${document.slug.toString()}.html`,
         },
       },
-
+      {
+        type: "meta",
+        attributes: {
+          name: "twitter:image",
+          content: liveFavIcon,
+        },
+      },
       {
         type: "meta",
         attributes: {
@@ -211,12 +185,7 @@ const City: Template<TemplateRenderProps> = ({
   path,
   document,
 }) => {
-  const {
-    name,
-    c_addressRegionDisplayName,
-    dm_directoryParents,
-    dm_directoryChildren,
-  } = document;
+  const { name, dm_directoryParents, dm_directoryChildren } = document;
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
@@ -229,7 +198,6 @@ const City: Template<TemplateRenderProps> = ({
     } else {
       origin = entity.address.country;
     }
-    let key: any = Object.keys(entity.hours)[0];
 
     const what3WordsAddressString = entity.what3WordsAddress ? (
       <div className="store-phone w3w">
@@ -306,12 +274,12 @@ const City: Template<TemplateRenderProps> = ({
               <g transform="translate(0 0)">
                 <path
                   d="M6.789,23.576c1.079,1.719,2.246,3.8,3.4,5.825.427.747.813.859,1.326-.027,1.113-1.931,2.207-3.931,3.359-5.8,3.5-5.661,9.223-11.181,4.67-18.8C15.5-1.987,4.5-1.265,1.216,5.034c-3.769,7.219,2.117,13.039,5.574,18.542Z"
-                  fill="#d61a0c"
+                  fill="#008661"
                   fill-rule="evenodd"
                 />
                 <path
                   d="M10.61,6.247a4.116,4.116,0,1,1-4.116,4.116A4.117,4.117,0,0,1,10.61,6.247Z"
-                  fill="#a60d0d"
+                  fill="#008661"
                   fill-rule="evenodd"
                 />
               </g>
@@ -329,26 +297,31 @@ const City: Template<TemplateRenderProps> = ({
             </p>
           </div>
           {what3WordsAddressString}
-          <div className="store-phone">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="23.987"
-              height="23.987"
-              viewBox="0 0 23.987 23.987"
-            >
-              <path
-                d="M19.64,17.328c-.617,1.876-3.036,2.812-4.764,2.656A15.194,15.194,0,0,1,8,17.14,22.652,22.652,0,0,1,.885,8.652C-.22,6.3-.468,3.411,1.176,1.268A2.827,2.827,0,0,1,3.429,0C4.8-.063,4.992.721,5.463,1.943c.351.913.819,1.845,1.08,2.792C7.032,6.5,5.321,6.575,5.105,8.019c-.133.911.969,2.132,1.468,2.781A13.473,13.473,0,0,0,10.051,14c.76.479,1.984,1.341,2.853.865,1.339-.733,1.213-2.991,3.084-2.227a30.12,30.12,0,0,1,2.833,1.463c1.431.769,1.364,1.567.819,3.223h0"
-                transform="translate(4.5) rotate(13)"
-                fill="#d61a0c"
-                fill-rule="evenodd"
-              />
-            </svg>
-            <p>
-              <a href={`tel:${entity.mainPhone}`} rel="noopener noreferrer">
-                {entity.mainPhone}
-              </a>
-            </p>
-          </div>
+          {entity.mainPhone ? (
+            <div className="store-phone">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="23.987"
+                height="23.987"
+                viewBox="0 0 23.987 23.987"
+              >
+                <path
+                  d="M19.64,17.328c-.617,1.876-3.036,2.812-4.764,2.656A15.194,15.194,0,0,1,8,17.14,22.652,22.652,0,0,1,.885,8.652C-.22,6.3-.468,3.411,1.176,1.268A2.827,2.827,0,0,1,3.429,0C4.8-.063,4.992.721,5.463,1.943c.351.913.819,1.845,1.08,2.792C7.032,6.5,5.321,6.575,5.105,8.019c-.133.911.969,2.132,1.468,2.781A13.473,13.473,0,0,0,10.051,14c.76.479,1.984,1.341,2.853.865,1.339-.733,1.213-2.991,3.084-2.227a30.12,30.12,0,0,1,2.833,1.463c1.431.769,1.364,1.567.819,3.223h0"
+                  transform="translate(4.5) rotate(13)"
+                  fill="#008661"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <p>
+                <a href={`tel:${entity.mainPhone}`} rel="noopener noreferrer">
+                  {entity.mainPhone}
+                </a>
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div className="store-link">
             <a
               className="direction"
@@ -456,6 +429,32 @@ const City: Template<TemplateRenderProps> = ({
     }
   }
 
+  let breadcrumbScheme: any = [];
+  let currentIndex: any = 0;
+  dm_directoryParents &&
+    dm_directoryParents.map((i: any, index: any) => {
+      currentIndex = index;
+      if (index != 0) {
+        breadcrumbScheme.push({
+          "@type": "ListItem",
+          position: index,
+          item: {
+            "@id": `${stagingBaseUrl}${i.slug}.html`,
+            name: i.name,
+          },
+        });
+      }
+    });
+
+  breadcrumbScheme.push({
+    "@type": "ListItem",
+    position: currentIndex + 1,
+    item: {
+      "@id": `${stagingBaseUrl}${document.slug.toString()}.html`,
+      name: document.name,
+    },
+  });
+
   return (
     <>
       <JsonLd<Organization>
@@ -464,7 +463,7 @@ const City: Template<TemplateRenderProps> = ({
           "@type": "Organization",
           name: "Salata Limited",
           url: "https://www.salata.com/",
-          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
+          logo: liveFavIcon,
           address: {
             "@type": "PostalAddress",
             streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
@@ -483,6 +482,14 @@ const City: Template<TemplateRenderProps> = ({
             "https://www.instagram.com/salatasalads/",
             "https://twitter.com/salatasalads",
           ],
+        }}
+      />
+      <JsonLd<BreadcrumbList>
+        item={{
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+
+          itemListElement: breadcrumbScheme,
         }}
       />
       <Header />

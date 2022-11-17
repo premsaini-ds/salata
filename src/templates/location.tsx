@@ -60,11 +60,24 @@ export const config: TemplateConfig = {
   },
 };
 
-var currentUrl: any = "";
+var url = "";
 
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
-  currentUrl = document.slug.toString() + ".html";
-  return document.slug.toString() + ".html";
+  if (!document.slug) {
+    let name: any = document.name.toLowerCase();
+    let string: any = name.toString();
+    let removeSpecialCharacters = string.replace(
+      /[&\/\\#^+()$~%.'":*?<>{}!@]/g,
+      ""
+    );
+    let result: any = removeSpecialCharacters.replaceAll("  ", "-");
+    let finalString: any = result.replaceAll(" ", "-");
+    url = `${document.id}-${finalString}.html`;
+  } else {
+    url = `${document.slug.toString()}.html`;
+  }
+
+  return url;
 };
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
@@ -125,14 +138,14 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
         type: "link",
         attributes: {
           rel: "canonical",
-          href: stagingBaseUrl + document.slug.toString() + ".html",
+          href: stagingBaseUrl + url,
         },
       },
       {
         type: "meta",
         attributes: {
           property: "og:url",
-          content: stagingBaseUrl + document.slug.toString() + ".html",
+          content: stagingBaseUrl + url,
         },
       },
 

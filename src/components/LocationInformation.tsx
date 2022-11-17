@@ -28,50 +28,46 @@ var tiktok: Boolean = false;
 var facebook: Boolean = false;
 
 var data2: any = [];
-var url: any = "";
-var currentLatitude: any = 0.0;
-var currentLongitude: any = 0.0;
+
 const LocationInformation = (data: props) => {
   const [time, setTime] = React.useState({});
   const [delHours, setDelHours] = React.useState({});
   const [coordinates, setCoordinate] = React.useState({});
-  const [closingTime, setClosingTime] = React.useState("");
+
   const [timezone, setTimeZone] = React.useState("");
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
-  const [phone, setPhone] = React.useState(null);
   const [address_str, serAddress_str] = React.useState("");
   React.useEffect(() => {
     getString();
     setTime(data.prop);
     setCoordinate(data.coords);
     setDelHours(data.deliveryHours);
-    renderHours2(data.prop);
+
     setTimeZone(data.timezone);
-    setPhone(data.phone);
-    if (data2[0].isClosed) {
-      setClosingTime("CLOSED");
-    } else {
-      setClosingTime(data2[0].openIntervals[0].end);
-    }
 
     //social icon
-    let checkInsta = data.instagramHandle.includes("https://www.instagram.com");
+
+    let checkInsta = data.instagramHandle
+      ? data.instagramHandle.includes("https://www.instagram.com")
+      : "";
 
     insta = checkInsta;
 
-    let checktwitter = data.twitterHandle.includes("https://twitter.com");
+    let checktwitter = data.twitterHandle
+      ? data.twitterHandle.includes("https://twitter.com")
+      : "";
 
     twitter = checktwitter;
 
     let checktiktok = data.c_tikTok
-      ? data.c_tikTok
-      : "".includes("https://www.tiktok.com");
+      ? data.c_tikTok.includes("https://www.tiktok.com")
+      : "";
 
     tiktok = checktiktok;
 
-    let checkfacebook = data.facebookPageUrl.includes(
-      "https://www.facebook.com"
-    );
+    let checkfacebook = data.facebookPageUrl
+      ? data.facebookPageUrl.includes("https://www.facebook.com")
+      : "";
     facebook = checkfacebook;
   }, []);
 
@@ -133,64 +129,6 @@ const LocationInformation = (data: props) => {
       );
     }
   };
-  const todayIndex = new Date().getDay();
-
-  function getSorterForCurrentDay(): { [key: string]: number } {
-    const dayIndexes = [0, 1, 2, 3, 4, 5, 6];
-
-    const updatedDayIndexes = [];
-    for (let i = 0; i < dayIndexes.length; i++) {
-      let dayIndex = dayIndexes[i];
-      if (dayIndex - todayIndex >= 0) {
-        dayIndex = dayIndex - todayIndex;
-      } else {
-        dayIndex = dayIndex + 7 - todayIndex;
-      }
-      updatedDayIndexes[i] = dayIndex;
-    }
-
-    return {
-      sunday: updatedDayIndexes[0],
-      monday: updatedDayIndexes[1],
-      tuesday: updatedDayIndexes[2],
-      wednesday: updatedDayIndexes[3],
-      thursday: updatedDayIndexes[4],
-      friday: updatedDayIndexes[5],
-      saturday: updatedDayIndexes[6],
-    };
-  }
-
-  const defaultSorter: { [key: string]: number } = {
-    sunday: 0,
-    monday: 1,
-    tuesday: 2,
-    wednesday: 3,
-    thursday: 4,
-    friday: 5,
-    saturday: 6,
-  };
-
-  function sortByDay(week: any) {
-    const tmp = [];
-    for (const [k, v] of Object.entries(week)) {
-      tmp[getSorterForCurrentDay()[k]] = { key: k, value: v };
-    }
-
-    const orderedWeek: any = {};
-    tmp.forEach((obj) => {
-      orderedWeek[obj.key] = obj.value;
-    });
-
-    return orderedWeek;
-  }
-
-  const renderHours2 = (deliveryHours: any) => {
-    const dayDom: JSX.Element[] = [];
-    const deliverDayDom: JSX.Element[] = [];
-    for (const [k, v] of Object.entries(sortByDay(deliveryHours))) {
-      data2.push(v);
-    }
-  };
 
   const conversionDetails = {
     cid: "e801ea67-1c6e-4815-baac-e61a111e9f77",
@@ -209,9 +147,9 @@ const LocationInformation = (data: props) => {
             <h2 className="store-time-status">
               {time ? (
                 <OpenCloseTime
-                  hours={time ? time : {}}
-                  deliveryHours={delHours ? delHours : {}}
-                  timezone={timezone ? timezone : {}}
+                  hours={time}
+                  deliveryHours={delHours}
+                  timezone={timezone}
                 />
               ) : (
                 <></>
@@ -252,29 +190,33 @@ const LocationInformation = (data: props) => {
                       {regionNames.of(data.address.countryCode)} <br />
                     </h2>
                   </div>
-                  <div className="store-phone">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="23.987"
-                      height="23.987"
-                      viewBox="0 0 23.987 23.987"
-                    >
-                      <path
-                        d="M19.64,17.328c-.617,1.876-3.036,2.812-4.764,2.656A15.194,15.194,0,0,1,8,17.14,22.652,22.652,0,0,1,.885,8.652C-.22,6.3-.468,3.411,1.176,1.268A2.827,2.827,0,0,1,3.429,0C4.8-.063,4.992.721,5.463,1.943c.351.913.819,1.845,1.08,2.792C7.032,6.5,5.321,6.575,5.105,8.019c-.133.911.969,2.132,1.468,2.781A13.473,13.473,0,0,0,10.051,14c.76.479,1.984,1.341,2.853.865,1.339-.733,1.213-2.991,3.084-2.227a30.12,30.12,0,0,1,2.833,1.463c1.431.769,1.364,1.567.819,3.223h0"
-                        transform="translate(4.5) rotate(13)"
-                        fill="#008661"
-                        fill-rule="evenodd"
-                      />
-                    </svg>
-                    <p>
-                      <Link
-                        href={`tel:${data.phone}`}
-                        rel="noopener noreferrer"
+                  {data.phone ? (
+                    <div className="store-phone">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="23.987"
+                        height="23.987"
+                        viewBox="0 0 23.987 23.987"
                       >
-                        {data.phone ? data.phone : ""}
-                      </Link>
-                    </p>
-                  </div>
+                        <path
+                          d="M19.64,17.328c-.617,1.876-3.036,2.812-4.764,2.656A15.194,15.194,0,0,1,8,17.14,22.652,22.652,0,0,1,.885,8.652C-.22,6.3-.468,3.411,1.176,1.268A2.827,2.827,0,0,1,3.429,0C4.8-.063,4.992.721,5.463,1.943c.351.913.819,1.845,1.08,2.792C7.032,6.5,5.321,6.575,5.105,8.019c-.133.911.969,2.132,1.468,2.781A13.473,13.473,0,0,0,10.051,14c.76.479,1.984,1.341,2.853.865,1.339-.733,1.213-2.991,3.084-2.227a30.12,30.12,0,0,1,2.833,1.463c1.431.769,1.364,1.567.819,3.223h0"
+                          transform="translate(4.5) rotate(13)"
+                          fill="#008661"
+                          fill-rule="evenodd"
+                        />
+                      </svg>
+                      <p>
+                        <Link
+                          href={`tel:${data.phone}`}
+                          rel="noopener noreferrer"
+                        >
+                          {data.phone ? data.phone : ""}
+                        </Link>
+                      </p>
+                    </div>
+                  ) : (
+                    <></>
+                  )}
 
                   <div className="store-link">
                     <Link
@@ -312,9 +254,9 @@ const LocationInformation = (data: props) => {
               </div>
               {time || delHours ? (
                 <Hours
-                  hours={time ? time : {}}
-                  deliveryHours={delHours ? delHours : {}}
-                  timezone={timezone ? timezone : {}}
+                  hours={time}
+                  deliveryHours={delHours}
+                  timezone={timezone}
                 />
               ) : (
                 <></>

@@ -232,10 +232,9 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     name,
     address,
     mainPhone,
-    description,
-    slug,
+
     hours,
-    photoGallery,
+
     c_relatedfaq,
     c_aboutData,
     deliveryHours,
@@ -414,7 +413,9 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         Name={name}
         TagLine={""}
         BackgroundImage={
-          c_aboutData.photoGallery ? c_aboutData.photoGallery[0].url : ""
+          c_aboutData && c_aboutData.photoGallery
+            ? c_aboutData.photoGallery[0].url
+            : ""
         }
         CtaButton={c_ctabutton}
         template={"location"}

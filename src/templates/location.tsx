@@ -73,7 +73,9 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
     let result: any = removeSpecialCharacters.replaceAll("  ", "-");
     let finalString: any = result.replaceAll(" ", "-");
     url = `${document.id}-${finalString}.html`;
+    console.log(url, "jgjgj");
   } else {
+    console.log(url, "second");
     url = `${document.slug.toString()}.html`;
   }
 

@@ -246,6 +246,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     c_gallery_food,
     dm_directoryParents,
   } = document;
+  const { _site } = document;
   let templateData = { document: document, __meta: __meta };
   let hoursSchema = [];
   let breadcrumbScheme = [];
@@ -322,7 +323,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
-
+  console.log(document, "document");
   return (
     <>
       <JsonLd<Restaurant>
@@ -404,7 +405,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         }}
       />
 
-      <Header />
+      <Header nav={document._site.c_navigation} />
       <BreadCrumbs
         name={name}
         parents={dm_directoryParents}

@@ -15,6 +15,9 @@ type Link = {
   label: string;
   url: string;
 };
+type data = {
+  nav: any;
+};
 
 const links: Link[] = [
   {
@@ -35,7 +38,7 @@ const links: Link[] = [
   },
 ];
 
-const Header = (headerItem: c_headerItems) => {
+const Header = (headerItem: data) => {
   const linkDoms = links.map((link) => (
     <div key={link && link.label ? link.label : ""}>
       <a href={link.url} target="_blank" rel="noreferrer">
@@ -46,7 +49,7 @@ const Header = (headerItem: c_headerItems) => {
   const toggle = () => {
     document.getElementById("reactele").classList.toggle("menu-opened");
   };
-
+  console.log(headerItem.nav, "headerItem");
   return (
     <>
       <div className="site-header">
@@ -95,19 +98,17 @@ const Header = (headerItem: c_headerItems) => {
         <nav className="navigation">
           <div className="container flex flex-row justify-between">
             <ul id="main-nav" className="main-nav">
-              <li>
-                <a href="#">Menu</a>
-              </li>
-              <li className=" relative">
-                <a href="#">Dressings</a>
-              </li>
-              <li className=" relative">
-                <a href="#">Catering</a>
-              </li>
-              <li className=" relative">
-                <a href="#">Loyalty</a>
-              </li>
-              <li className="group relative">
+              {headerItem.nav.map((i: any) => {
+                return (
+                  <>
+                    <li>
+                      <a href={i.link}>{i.label}</a>
+                    </li>
+                  </>
+                );
+              })}
+
+              {/* <li className="group relative">
                 <a href="#">Grow With Us</a>
                 <ul className="submenu">
                   <li>
@@ -123,7 +124,7 @@ const Header = (headerItem: c_headerItems) => {
                     <a href="#">Blog</a>
                   </li>
                 </ul>
-              </li>
+              </li> */}
             </ul>
           </div>
         </nav>

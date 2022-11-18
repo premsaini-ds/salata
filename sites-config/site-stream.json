@@ -1,0 +1,37 @@
+{
+    "$id": "site-entity",
+    "filter": {
+      "entityIds": ["global-elements"]
+    },
+    "source": "knowledgeGraph",
+    "fields": [
+        "c_navigation",
+        "name"  ,
+        "c_findMySalata",
+      "c_orderNow",
+      "c_menu",
+      "c_newsroom",
+      "c_growWithUs",
+      "c_downloadapp",
+    "c_apple",
+      "c_android",
+      "facebookPageUrl",
+      "twitterHandle",
+      "instagramHandle",
+      "c_salataHomeOffice",
+      "address",
+      "mainPhone",
+      "emails",
+      "c_copyright",
+      "c_sitemap",
+      "c_privacyPolicy",
+      "c_termsOfService",
+      "c_giveYourInboxATasteLift",
+      "c_signUp"
+
+    ],
+    "localization": {
+      "locales": ["en_GB","en"],
+      "primary": false
+    }
+  }

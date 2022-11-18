@@ -6,6 +6,7 @@ import {
   CookieprivacypolicyUrl,
 } from "../../src/constants";
 import "../../src/main.css";
+
 const Footer = () => {
   React.useEffect(() => {});
   return (

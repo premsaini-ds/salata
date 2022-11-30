@@ -484,6 +484,8 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         c_newsroom={document._site.c_newsroom}
         c_growWithUs={document._site.c_growWithUs}
         c_downloadapp={document._site.c_downloadapp}
+        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+        c_signUp={document._site.c_signUp}
       />
     </>
   );

@@ -1,5 +1,7 @@
 import * as React from "react";
 import CookieConsent from "react-cookie-consent";
+import appStore from "../images/play-store-icon.svg";
+import googlePlay from "../images/app-store-icon.svg";
 import {
   cookieStartText,
   cookieEndText,
@@ -17,10 +19,11 @@ type data = {
   c_newsroom: any;
   c_growWithUs: any;
   c_downloadapp: any;
+  c_giveYourInboxATasteLift: any;
+  c_signUp: any;
 };
-
 const Footer = (Data: data) => {
-  console.log(Data.c_downloadapp, "77Data");
+  console.log(Data.c_giveYourInboxATasteLift, "c_downloadapp");
   return (
     <>
       <footer className="site-footer">
@@ -36,7 +39,6 @@ const Footer = (Data: data) => {
               </a>
             </div>
           </div>
-
           {/* c_menu */}
           <div className="">
             <ul className="footer-links">
@@ -94,7 +96,6 @@ const Footer = (Data: data) => {
               </li>
             </ul>
           </div>
-
           <div className="footer-address">
             <p>{Data?.c_salataHomeOffice}</p>
             <p>{Data.address?.line1},</p>
@@ -103,8 +104,47 @@ const Footer = (Data: data) => {
               {Data.address?.postalCode} | {Data?.mainPhone}
             </p>
           </div>
+        </div>
+        <div
+          className="container flex flex-col lg:flex-row justify-between"
+          style={{ marginTop: "30px" }}
+        >
+          {/* c_downloadapp */}
+          <div className="">
+            <ul className="footer-links" style={{ marginTop: "10px" }}>
+              <li>
+                {Data?.c_downloadapp}
+                <div className="app-link">
+                  <a target="_blank" href="#" rel="noopener noreferrer">
+                    <img src={appStore} alt="Google Play" />{" "}
+                    <span>
+                      GET IT ON <b>Google Play</b>
+                    </span>
+                  </a>
+
+                  <a target="_blank" href="#" rel="noopener noreferrer">
+                    <img src={googlePlay} alt="App Store" />{" "}
+                    <span>
+                      Download on the <b>App Store</b>
+                    </span>
+                  </a>
+                </div>
+              </li>
+            </ul>
+          </div>
+          {/* sign UP */}
           <div className="text-center">
-            <ul className="social-links">
+            <p> {Data.c_giveYourInboxATasteLift}</p>
+            <ul className="social-links" style={{ marginTop: "10px" }}>
+              <li>
+                <a href="#">{Data?.c_signUp?.label}</a>
+              </li>
+            </ul>
+          </div>
+          {/* Social-links */}
+          <div className="text-center">
+            <p> Stay Connected with Us</p>
+            <ul className="social-links" style={{ marginTop: "10px" }}>
               <li>
                 <a href="#" target="_blank">
                   <svg

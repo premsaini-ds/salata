@@ -186,7 +186,7 @@ const City: Template<TemplateRenderProps> = ({
   path,
   document,
 }) => {
-  const { name, dm_directoryParents, dm_directoryChildren } = document;
+  const { name, dm_directoryParents, dm_directoryChildren, _site } = document;
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
@@ -515,7 +515,7 @@ const City: Template<TemplateRenderProps> = ({
           itemListElement: breadcrumbScheme,
         }}
       />
-      <Header />
+      <Header nav={document._site.c_navigation} />
       <BreadCrumbs
         name={name}
         parents={dm_directoryParents}

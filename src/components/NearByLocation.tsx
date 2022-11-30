@@ -14,7 +14,6 @@ const NearByLocation = (entities: props) => {
   const [data, setData] = useState([]);
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
   useEffect(() => {
-    console.log(entities.prop.response, "entities.prop.response");
     let array: any = [];
     const metersToMiles = (kilometers: number) => {
       const miles = kilometers * 0.62137119;
@@ -139,7 +138,6 @@ const NearByLocation = (entities: props) => {
                 } else {
                   origin = e.address.country;
                 }
-                console.log(entities.slug, e.slug, "hkhhgdh");
 
                 if (entities.slug != e.slug && e.closed != true) {
                   return (

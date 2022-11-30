@@ -6,36 +6,42 @@ import {
   CookieprivacypolicyUrl,
 } from "../../src/constants";
 import "../../src/main.css";
+type data = {
+  address: any;
+  c_privacyPolicy: any;
+  c_termsOfService: any;
+  c_sitemap: any;
+  c_salataHomeOffice: any;
+  mainPhone: any;
+};
 
-const Footer = () => {
-  React.useEffect(() => {});
+const Footer = (Data: data) => {
   return (
     <>
       <footer className="site-footer">
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">
             <ul className="footer-links">
+              <li>{/* <a href="#">Cookies</a> */}</li>
               <li>
-                <a href="#">Cookies</a>
+                <a href="#">{Data.c_privacyPolicy?.label}</a>
               </li>
               <li>
-                <a href="#">Privacy</a>
+                <a href="#">{Data.c_termsOfService?.label}</a>
               </li>
+              <li>{/* <a href="#">Terms of Sale</a> */}</li>
               <li>
-                <a href="#">Terms & Conditions</a>
-              </li>
-              <li>
-                <a href="#">Terms of Sale</a>
-              </li>
-              <li>
-                <a href="#">Sitemap</a>
+                <a href="#">{Data.c_sitemap?.label}</a>
               </li>
             </ul>
           </div>
           <div className="footer-address">
-            <p>Salata Home Office</p>
-            <p>16720 Park Row Dr,</p>
-            <p>Houston, TX 77084 |(844) 725-2821</p>
+            <p>{Data?.c_salataHomeOffice}</p>
+            <p>{Data.address?.line1},</p>
+            <p>
+              {Data.address?.city}, {Data.address?.region}{" "}
+              {Data.address?.postalCode} | {Data?.mainPhone}
+            </p>
           </div>
           <div className="text-center">
             <ul className="social-links">

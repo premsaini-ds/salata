@@ -189,9 +189,9 @@ const State: Template<TemplateRenderProps> = ({
     dm_directoryParents,
     dm_directoryChildren,
     c_addressRegionDisplayName,
+    _site,
   } = document;
 
-  console.log(dm_directoryChildren, "dm_directoryChildren");
   const childrenDivs =
     dm_directoryChildren &&
     dm_directoryChildren.map((entity: any) => {
@@ -205,10 +205,6 @@ const State: Template<TemplateRenderProps> = ({
           entity.dm_directoryChildren &&
           entity.dm_directoryChildren[0].slug
         ) {
-          console.log(
-            entity.dm_directoryChildren[0].slug,
-            "entity.dm_directoryChildren[0].slug"
-          );
           return (
             <div className="w-1/2 storelocation-category md:w-1/3 lg:w-1/4 px-4">
               <a
@@ -315,7 +311,7 @@ const State: Template<TemplateRenderProps> = ({
           itemListElement: breadcrumbScheme,
         }}
       />
-      <Header />
+      <Header nav={document._site.c_navigation} />
       <BreadCrumbs
         name={name}
         parents={dm_directoryParents}

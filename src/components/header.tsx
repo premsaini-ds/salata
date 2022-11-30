@@ -1,55 +1,17 @@
 import * as React from "react";
-import { useEffect, useState } from "react";
-import Logo from "../images/logo.svg";
-import appStore from "../images/play-store-icon.svg";
-import googlePlay from "../images/app-store-icon.svg";
-import { useTranslation } from "react-i18next";
-import { pathToRegexp, compile } from "path-to-regexp";
-import {
-  AnalyticsProvider,
-  AnalyticsScopeProvider,
-} from "@yext/pages/components";
 import "../index.css";
 import "../main.css";
-type Link = {
-  label: string;
-  url: string;
-};
+
 type data = {
   nav: any;
+  c_growWithUs: any;
 };
 
-const links: Link[] = [
-  {
-    label: "ORDER NOW",
-    url: "/",
-  },
-  {
-    label: "ORDER FOOD",
-    url: "/",
-  },
-  {
-    label: "ABOUT",
-    url: "/about",
-  },
-  {
-    label: "LOCATION",
-    url: "/",
-  },
-];
-
 const Header = (headerItem: data) => {
-  const linkDoms = links.map((link) => (
-    <div key={link && link.label ? link.label : ""}>
-      <a href={link.url} target="_blank" rel="noreferrer">
-        {link && link.label ? link.label : ""}
-      </a>
-    </div>
-  ));
   const toggle = () => {
     document.getElementById("reactele").classList.toggle("menu-opened");
   };
-  console.log(headerItem.nav, "headerItem");
+
   return (
     <>
       <div className="site-header">
@@ -98,33 +60,37 @@ const Header = (headerItem: data) => {
         <nav className="navigation">
           <div className="container flex flex-row justify-between">
             <ul id="main-nav" className="main-nav">
-              {headerItem.nav.map((i: any) => {
-                return (
-                  <>
-                    <li>
-                      <a href={i.link}>{i.label}</a>
-                    </li>
-                  </>
-                );
-              })}
-
-              {/* <li className="group relative">
-                <a href="#">Grow With Us</a>
-                <ul className="submenu">
-                  <li>
-                    <a href="#">Franchising</a>
-                  </li>
-                  <li>
-                    <a href="#">Our Story</a>
-                  </li>
-                  <li>
-                    <a href="#">Careers</a>
-                  </li>
-                  <li>
-                    <a href="#">Blog</a>
-                  </li>
-                </ul>
-              </li> */}
+              {headerItem.nav &&
+                headerItem.nav.map((i: any) => {
+                  return (
+                    <>
+                      <li>
+                        <a href={i.link}>{i.label}</a>
+                        {i.label.toUpperCase() ==
+                        headerItem.c_growWithUs?.firstLevelCTA.label.toUpperCase() ? (
+                          <>
+                            <ul className="submenu">
+                              {headerItem.c_growWithUs.secondLevelCTA.map(
+                                (j: any) => {
+                                  return (
+                                    <>
+                                      {" "}
+                                      <li>
+                                        <a href={j.link}>{j.label}</a>
+                                      </li>
+                                    </>
+                                  );
+                                }
+                              )}
+                            </ul>
+                          </>
+                        ) : (
+                          <></>
+                        )}
+                      </li>
+                    </>
+                  );
+                })}
             </ul>
           </div>
         </nav>

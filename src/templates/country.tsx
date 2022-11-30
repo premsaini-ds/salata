@@ -179,7 +179,7 @@ const Country: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
   document,
 }) => {
-  const { dm_directoryChildren, dm_directoryParents, name } = document;
+  const { dm_directoryChildren, dm_directoryParents, name, _site } = document;
 
   const childrenDivs =
     dm_directoryChildren &&
@@ -245,7 +245,7 @@ const Country: Template<TemplateRenderProps> = ({
         }}
       />
 
-      <Header />
+      <Header nav={document._site.c_navigation} />
       <BreadCrumbs
         name={name}
         parents={dm_directoryParents}

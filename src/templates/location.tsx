@@ -73,9 +73,7 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
     let result: any = removeSpecialCharacters.replaceAll("  ", "-");
     let finalString: any = result.replaceAll(" ", "-");
     url = `${document.id}-${finalString}.html`;
-    console.log(url, "jgjgj");
   } else {
-    console.log(url, "second");
     url = `${document.slug.toString()}.html`;
   }
 
@@ -323,7 +321,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
-  console.log(document, "document");
+
   return (
     <>
       <JsonLd<Restaurant>
@@ -405,7 +403,10 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         }}
       />
 
-      <Header nav={document._site.c_navigation} />
+      <Header
+        nav={document._site.c_navigation}
+        c_growWithUs={document._site.c_growWithUs}
+      />
       <BreadCrumbs
         name={name}
         parents={dm_directoryParents}
@@ -471,7 +472,14 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         <></>
       )}
 
-      <Footer />
+      <Footer
+        address={document._site.address}
+        c_privacyPolicy={document._site.c_privacyPolicy}
+        c_salataHomeOffice={document._site.c_salataHomeOffice}
+        c_termsOfService={document._site.c_termsOfService}
+        c_sitemap={document._site.c_sitemap}
+        mainPhone={document._site.mainPhone}
+      />
     </>
   );
 };

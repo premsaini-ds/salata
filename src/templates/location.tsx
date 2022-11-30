@@ -321,6 +321,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
+  console.log(document._site, "document._site");
 
   return (
     <>
@@ -479,6 +480,10 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         c_termsOfService={document._site.c_termsOfService}
         c_sitemap={document._site.c_sitemap}
         mainPhone={document._site.mainPhone}
+        c_menu={document._site.c_menu}
+        c_newsroom={document._site.c_newsroom}
+        c_growWithUs={document._site.c_growWithUs}
+        c_downloadapp={document._site.c_downloadapp}
       />
     </>
   );

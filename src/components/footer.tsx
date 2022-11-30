@@ -13,28 +13,88 @@ type data = {
   c_sitemap: any;
   c_salataHomeOffice: any;
   mainPhone: any;
+  c_menu: any;
+  c_newsroom: any;
+  c_growWithUs: any;
+  c_downloadapp: any;
 };
 
 const Footer = (Data: data) => {
+  console.log(Data.c_downloadapp, "77Data");
   return (
     <>
       <footer className="site-footer">
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">
+            <div className="logo">
+              <a href="#">
+                <img
+                  style={{ maxWidth: "50%" }}
+                  src="https://order-salata-cms.azureedge.net/uploads/_/originals/salata_logo_nav@2x.svg"
+                  alt="Favorite Fried Chicken"
+                />
+              </a>
+            </div>
+          </div>
+
+          {/* c_menu */}
+          <div className="">
             <ul className="footer-links">
-              <li>{/* <a href="#">Cookies</a> */}</li>
               <li>
-                <a href="#">{Data.c_privacyPolicy?.label}</a>
-              </li>
-              <li>
-                <a href="#">{Data.c_termsOfService?.label}</a>
-              </li>
-              <li>{/* <a href="#">Terms of Sale</a> */}</li>
-              <li>
-                <a href="#">{Data.c_sitemap?.label}</a>
+                <a href="#">{Data.c_menu.firstLevelCTA.label}</a>
+                <ul className="footer-links">
+                  {Data.c_menu.secondLevelCTA.map((i: any) => {
+                    return (
+                      <>
+                        <li>
+                          <a href="#">{i.label}</a>
+                        </li>
+                      </>
+                    );
+                  })}
+                </ul>
               </li>
             </ul>
           </div>
+          {/* c_newsroom */}
+          <div className="">
+            <ul className="footer-links">
+              <li>
+                <a href="#">{Data.c_newsroom.firstLevelCTA.label}</a>
+                <ul className="footer-links">
+                  {Data.c_newsroom.secondLevelCTA.map((i: any) => {
+                    return (
+                      <>
+                        <li>
+                          <a href="#">{i.label}</a>
+                        </li>
+                      </>
+                    );
+                  })}
+                </ul>
+              </li>
+            </ul>
+          </div>
+          {/* c_growWithUs */}
+          <div className="">
+            <ul className="footer-links">
+              <li>
+                <a href="#">{Data.c_growWithUs.firstLevelCTA.label}</a>
+                <ul className="footer-links">
+                  {Data.c_growWithUs.secondLevelCTA.map((i: any) => {
+                    return (
+                      <>
+                        <li>
+                          <a href="#">{i.label}</a>
+                        </li>
+                      </>
+                    );
+                  })}
+                </ul>
+              </li>
+            </ul>
+          </div>
+
           <div className="footer-address">
             <p>{Data?.c_salataHomeOffice}</p>
             <p>{Data.address?.line1},</p>

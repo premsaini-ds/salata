@@ -541,7 +541,14 @@ const City: Template<TemplateRenderProps> = ({
         </div>
       </div>
 
-      <Footer />
+      <Footer
+        address={document._site.address}
+        c_privacyPolicy={document._site.c_privacyPolicy}
+        c_salataHomeOffice={document._site.c_salataHomeOffice}
+        c_termsOfService={document._site.c_termsOfService}
+        c_sitemap={document._site.c_sitemap}
+        mainPhone={document._site.mainPhone}
+      />
     </>
   );
 };

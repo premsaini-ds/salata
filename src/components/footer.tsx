@@ -41,9 +41,9 @@ const Footer = (Data: data) => {
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href="#">{Data.c_menu.firstLevelCTA.label}</a>
+                <a href="#">{Data.c_menu?.firstLevelCTA.label}</a>
                 <ul className="footer-links">
-                  {Data.c_menu.secondLevelCTA.map((i: any) => {
+                  {Data.c_menu?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>
@@ -60,9 +60,9 @@ const Footer = (Data: data) => {
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href="#">{Data.c_newsroom.firstLevelCTA.label}</a>
+                <a href="#">{Data.c_newsroom?.firstLevelCTA.label}</a>
                 <ul className="footer-links">
-                  {Data.c_newsroom.secondLevelCTA.map((i: any) => {
+                  {Data.c_newsroom?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>
@@ -79,9 +79,9 @@ const Footer = (Data: data) => {
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href="#">{Data.c_growWithUs.firstLevelCTA.label}</a>
+                <a href="#">{Data.c_growWithUs?.firstLevelCTA.label}</a>
                 <ul className="footer-links">
-                  {Data.c_growWithUs.secondLevelCTA.map((i: any) => {
+                  {Data.c_growWithUs?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>

@@ -321,7 +321,6 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       name: document.name,
     },
   });
-  console.log(document._site, "document._site");
 
   return (
     <>
@@ -486,6 +485,12 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         c_downloadapp={document._site.c_downloadapp}
         c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
         c_signUp={document._site.c_signUp}
+        facebookPageUrl={document._site.facebookPageUrl}
+        twitterHandle={document._site.twitterHandle}
+        instagramHandle={document._site.instagramHandle}
+        c_android={document._site.c_android}
+        c_apple={document._site.c_apple}
+        emails={document._site.emails[0]}
       />
     </>
   );

@@ -52,6 +52,18 @@ const FourOhFour: Template<TemplateRenderProps> = ({ document }) => {
         c_termsOfService={document._site.c_termsOfService}
         c_sitemap={document._site.c_sitemap}
         mainPhone={document._site.mainPhone}
+        c_menu={document._site.c_menu}
+        c_newsroom={document._site.c_newsroom}
+        c_growWithUs={document._site.c_growWithUs}
+        c_downloadapp={document._site.c_downloadapp}
+        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+        c_signUp={document._site.c_signUp}
+        facebookPageUrl={document._site.facebookPageUrl}
+        twitterHandle={document._site.twitterHandle}
+        instagramHandle={document._site.instagramHandle}
+        c_android={document._site.c_android}
+        c_apple={document._site.c_apple}
+        emails={document._site.emails[0]}
       />
     </>
   );

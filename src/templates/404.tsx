@@ -44,7 +44,16 @@ const FourOhFour: Template<TemplateRenderProps> = ({ document }) => {
     <>
       <Header nav={document._site.c_navigation} />
 
-      <h1 style={{ textAlign: "center" }}>404 - Page Not Found</h1>
+      <h4 style={{ textAlign: "center", color: "#2e8661" }}>
+        you must’ve reached the bottom of the bowl
+      </h4>
+      <p style={{ textAlign: "center" }}>
+        <span>
+          The page you’re looking for couldn’t be found. Use the navigation or
+          return to
+        </span>
+        <a href="Salata.com">Salata.com</a> <span>for a fresh start.</span>
+      </p>
       <Footer
         address={document._site.address}
         c_privacyPolicy={document._site.c_privacyPolicy}

@@ -289,6 +289,7 @@ const Country: Template<TemplateRenderProps> = ({
         c_android={document._site.c_android}
         c_apple={document._site.c_apple}
         emails={document._site.emails[0]}
+        c_copyright={document._site.c_copyright}
       />
     </>
   );

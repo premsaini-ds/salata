@@ -105,7 +105,6 @@ const Root: Template<TemplateRenderProps> = ({
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

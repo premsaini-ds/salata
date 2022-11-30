@@ -28,6 +28,7 @@ type data = {
   c_android: any;
   c_apple: any;
   emails: any;
+  c_copyright: any;
 };
 var insta: Boolean = false;
 var twitter: Boolean = false;
@@ -48,6 +49,8 @@ const Footer = (Data: data) => {
   return (
     <>
       <footer className="site-footer">
+        {/* first */}
+
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">
             <div className="logo">
@@ -137,6 +140,9 @@ const Footer = (Data: data) => {
             <a href={`mailto:${Data?.emails}`}>{Data?.emails}</a>
           </div>
         </div>
+
+        {/* second */}
+
         <div
           className="container flex flex-col lg:flex-row justify-between"
           style={{ marginTop: "30px" }}
@@ -237,6 +243,26 @@ const Footer = (Data: data) => {
                 ""
               )}
             </ul>
+          </div>
+        </div>
+        {/* third */}
+        <div className="container flex flex-col lg:flex-row justify-center">
+          <div className="footer-address">
+            <span>
+              <a href={Data?.c_sitemap?.link}>{Data?.c_sitemap.label}</a>
+            </span>
+            <span style={{ marginLeft: "5px", marginRight: "5px" }}>|</span>
+            <span>
+              <a href={Data?.c_privacyPolicy?.link}>
+                {Data.c_privacyPolicy.label}
+              </a>{" "}
+              &{" "}
+              <a href={Data.c_termsOfService?.link}>
+                {Data.c_termsOfService.label}
+              </a>
+            </span>
+            <span style={{ marginLeft: "5px", marginRight: "5px" }}>|</span>
+            <span>{Data.c_copyright}</span>
           </div>
         </div>
       </footer>

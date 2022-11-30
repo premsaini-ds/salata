@@ -3,7 +3,7 @@ import Banner from "../components/banner";
 import Footer from "../components/footer";
 import Header from "../components/header";
 import BreadCrumbs from "../components/BreadCrumbs";
-import bannerImage from "../images/app-bg.png";
+import bannerImage from "../images/bg-image.png";
 import { JsonLd } from "react-schemaorg";
 import {
   Template,

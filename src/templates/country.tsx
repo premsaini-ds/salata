@@ -3,7 +3,7 @@ import Footer from "../components/footer";
 import Header from "../components/header";
 import Banner from "../components/banner";
 import BreadCrumbs from "../components/BreadCrumbs";
-import bannerImage from "../images/app-bg.png";
+import bannerImage from "../images/bg-image.png";
 import { JsonLd } from "react-schemaorg";
 import { stagingBaseUrl, liveFavIcon } from "../constants";
 import {

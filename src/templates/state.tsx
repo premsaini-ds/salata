@@ -14,7 +14,16 @@ import {
   GetHeadConfig,
   HeadConfig,
 } from "@yext/pages";
-import { stagingBaseUrl, liveFavIcon } from "../constants";
+import {
+  stagingBaseUrl,
+  liveFavIcon,
+  AnalyticsEnableDebugging,
+  AnalyticsEnableTrackingCookie,
+} from "../constants";
+import {
+  AnalyticsProvider,
+  AnalyticsScopeProvider,
+} from "@yext/pages/components";
 
 export const config: TemplateConfig = {
   stream: {
@@ -181,8 +190,8 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 
 const State: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
-  path,
   document,
+  __meta,
 }) => {
   const {
     name,
@@ -192,6 +201,7 @@ const State: Template<TemplateRenderProps> = ({
     _site,
   } = document;
 
+  let templateData = { document: document, __meta: __meta };
   const childrenDivs =
     dm_directoryChildren &&
     dm_directoryChildren.map((entity: any) => {
@@ -311,55 +321,67 @@ const State: Template<TemplateRenderProps> = ({
           itemListElement: breadcrumbScheme,
         }}
       />
-      <Header nav={document._site.c_navigation} />
-      <BreadCrumbs
-        name={name}
-        parents={dm_directoryParents}
-        baseUrl={relativePrefixToRoot}
-        address={{}}
-      ></BreadCrumbs>
-      <Banner
-        Name={c_addressRegionDisplayName ? c_addressRegionDisplayName : ""}
-        TagLine={""}
-        BackgroundImage={bannerImage}
-        CtaButton={""}
-        text={name}
-        template={"state"}
-      />
+      <AnalyticsProvider
+        templateData={templateData}
+        enableDebugging={AnalyticsEnableDebugging}
+        enableTrackingCookie={AnalyticsEnableTrackingCookie}
+      >
+        {" "}
+        <AnalyticsScopeProvider name={"header"}>
+          <Header
+            nav={document._site.c_navigation}
+            c_growWithUs={document._site.c_growWithUs}
+          />
+          <BreadCrumbs
+            name={name}
+            parents={dm_directoryParents}
+            baseUrl={relativePrefixToRoot}
+            address={{}}
+          ></BreadCrumbs>
+          <Banner
+            Name={c_addressRegionDisplayName ? c_addressRegionDisplayName : ""}
+            TagLine={""}
+            BackgroundImage={bannerImage}
+            CtaButton={""}
+            text={name}
+            template={"state"}
+          />
 
-      <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
-        Cities in {name}, {document.dm_directoryParents[1].name}{" "}
-      </h3>
-      <div className="directory-country nearby-sec">
-        <div className="container">
-          <div className="flex flex-wrap justify-center -mx-[15px]">
-            <div className="w-full text-center"></div>
-            {childrenDivs}
+          <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
+            Cities in {name}, {document.dm_directoryParents[1].name}{" "}
+          </h3>
+          <div className="directory-country nearby-sec">
+            <div className="container">
+              <div className="flex flex-wrap justify-center -mx-[15px]">
+                <div className="w-full text-center"></div>
+                {childrenDivs}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <Footer
-        address={document._site.address}
-        c_privacyPolicy={document._site.c_privacyPolicy}
-        c_salataHomeOffice={document._site.c_salataHomeOffice}
-        c_termsOfService={document._site.c_termsOfService}
-        c_sitemap={document._site.c_sitemap}
-        mainPhone={document._site.mainPhone}
-        c_menu={document._site.c_menu}
-        c_newsroom={document._site.c_newsroom}
-        c_growWithUs={document._site.c_growWithUs}
-        c_downloadapp={document._site.c_downloadapp}
-        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
-        c_signUp={document._site.c_signUp}
-        facebookPageUrl={document._site.facebookPageUrl}
-        twitterHandle={document._site.twitterHandle}
-        instagramHandle={document._site.instagramHandle}
-        c_android={document._site.c_android}
-        c_apple={document._site.c_apple}
-        emails={document._site.emails[0]}
-        c_copyright={document._site.c_copyright}
-      />
+          <Footer
+            address={document._site.address}
+            c_privacyPolicy={document._site.c_privacyPolicy}
+            c_salataHomeOffice={document._site.c_salataHomeOffice}
+            c_termsOfService={document._site.c_termsOfService}
+            c_sitemap={document._site.c_sitemap}
+            mainPhone={document._site.mainPhone}
+            c_menu={document._site.c_menu}
+            c_newsroom={document._site.c_newsroom}
+            c_growWithUs={document._site.c_growWithUs}
+            c_downloadapp={document._site.c_downloadapp}
+            c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+            c_signUp={document._site.c_signUp}
+            facebookPageUrl={document._site.facebookPageUrl}
+            twitterHandle={document._site.twitterHandle}
+            instagramHandle={document._site.instagramHandle}
+            c_android={document._site.c_android}
+            c_apple={document._site.c_apple}
+            emails={document._site.emails[0]}
+            c_copyright={document._site.c_copyright}
+          />
+        </AnalyticsScopeProvider>
+      </AnalyticsProvider>
     </>
   );
 };

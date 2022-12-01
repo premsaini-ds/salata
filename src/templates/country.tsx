@@ -16,6 +16,15 @@ import {
   HeadConfig,
 } from "@yext/pages";
 
+import {
+  AnalyticsProvider,
+  AnalyticsScopeProvider,
+} from "@yext/pages/components";
+import {
+  AnalyticsEnableDebugging,
+  AnalyticsEnableTrackingCookie,
+} from "../constants";
+
 export const config: TemplateConfig = {
   stream: {
     $id: "country",
@@ -177,8 +186,11 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 
 const Country: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
+
   document,
+  __meta,
 }) => {
+  let templateData = { document: document, __meta: __meta };
   const { dm_directoryChildren, dm_directoryParents, name, _site } = document;
 
   const childrenDivs =
@@ -244,53 +256,64 @@ const Country: Template<TemplateRenderProps> = ({
           itemListElement: breadcrumbScheme,
         }}
       />
+      <AnalyticsProvider
+        templateData={templateData}
+        enableDebugging={AnalyticsEnableDebugging}
+        enableTrackingCookie={AnalyticsEnableTrackingCookie}
+      >
+        {" "}
+        <AnalyticsScopeProvider name={"header"}>
+          <Header
+            nav={document._site.c_navigation}
+            c_growWithUs={document._site.c_growWithUs}
+          />
+          <BreadCrumbs
+            name={name}
+            parents={dm_directoryParents}
+            baseUrl={relativePrefixToRoot}
+          ></BreadCrumbs>
+          <Banner
+            Name={name ? regionNames.of(name) : ""}
+            TagLine={""}
+            BackgroundImage={bannerImage}
+            CtaButton={""}
+            text={"Regions"}
+            template={"country"}
+          />
 
-      <Header nav={document._site.c_navigation} />
-      <BreadCrumbs
-        name={name}
-        parents={dm_directoryParents}
-        baseUrl={relativePrefixToRoot}
-      ></BreadCrumbs>
-      <Banner
-        Name={name ? regionNames.of(name) : ""}
-        TagLine={""}
-        BackgroundImage={bannerImage}
-        CtaButton={""}
-        text={"Regions"}
-        template={"country"}
-      />
-
-      <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
-        All Regions of {name}{" "}
-      </h3>
-      <div className="directory-country py-5 lg:py-[60px]">
-        <div className="container">
-          <div className="flex flex-wrap justify-center -mx-4">
-            {childrenDivs}
+          <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
+            All Regions of {name}{" "}
+          </h3>
+          <div className="directory-country py-5 lg:py-[60px]">
+            <div className="container">
+              <div className="flex flex-wrap justify-center -mx-4">
+                {childrenDivs}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <Footer
-        address={document._site.address}
-        c_privacyPolicy={document._site.c_privacyPolicy}
-        c_salataHomeOffice={document._site.c_salataHomeOffice}
-        c_termsOfService={document._site.c_termsOfService}
-        c_sitemap={document._site.c_sitemap}
-        mainPhone={document._site.mainPhone}
-        c_menu={document._site.c_menu}
-        c_newsroom={document._site.c_newsroom}
-        c_growWithUs={document._site.c_growWithUs}
-        c_downloadapp={document._site.c_downloadapp}
-        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
-        c_signUp={document._site.c_signUp}
-        facebookPageUrl={document._site.facebookPageUrl}
-        twitterHandle={document._site.twitterHandle}
-        instagramHandle={document._site.instagramHandle}
-        c_android={document._site.c_android}
-        c_apple={document._site.c_apple}
-        emails={document._site.emails[0]}
-        c_copyright={document._site.c_copyright}
-      />
+          <Footer
+            address={document._site.address}
+            c_privacyPolicy={document._site.c_privacyPolicy}
+            c_salataHomeOffice={document._site.c_salataHomeOffice}
+            c_termsOfService={document._site.c_termsOfService}
+            c_sitemap={document._site.c_sitemap}
+            mainPhone={document._site.mainPhone}
+            c_menu={document._site.c_menu}
+            c_newsroom={document._site.c_newsroom}
+            c_growWithUs={document._site.c_growWithUs}
+            c_downloadapp={document._site.c_downloadapp}
+            c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+            c_signUp={document._site.c_signUp}
+            facebookPageUrl={document._site.facebookPageUrl}
+            twitterHandle={document._site.twitterHandle}
+            instagramHandle={document._site.instagramHandle}
+            c_android={document._site.c_android}
+            c_apple={document._site.c_apple}
+            emails={document._site.emails[0]}
+            c_copyright={document._site.c_copyright}
+          />
+        </AnalyticsScopeProvider>
+      </AnalyticsProvider>
     </>
   );
 };

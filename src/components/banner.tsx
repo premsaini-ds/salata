@@ -44,14 +44,16 @@ const Banner = (Data: props) => {
           title="banner"
         />
         <div className="container text-center">
-          <h1>{Data.Name ? Data.Name : ""}</h1>
-          <p>{Data.TagLine ? Data.TagLine : ""}</p>
+          <h2>{Data.Name ? Data.Name : ""}</h2>
+          <h2>{Data.TagLine ? Data.TagLine : ""}</h2>
           {Data.CtaButton &&
           Data.CtaButton.label &&
           Data.CtaButton &&
           Data.CtaButton.link ? (
             <div className="cta_btn">
               <Link
+                data-ya-track="cta_button"
+                eventName={Data.CtaButton.label}
                 rel="noopener noreferrer"
                 conversionDetails={conversionDetails_primaryCTA}
                 href={Data.CtaButton ? Data.CtaButton.link : "#"}

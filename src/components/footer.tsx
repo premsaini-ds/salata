@@ -9,6 +9,7 @@ import {
 } from "../../src/constants";
 import "../../src/main.css";
 import { svgIcons } from "../svgIcon";
+import { Link } from "@yext/pages/components";
 type data = {
   address: any;
   c_privacyPolicy: any;
@@ -44,6 +45,7 @@ const Footer = (Data: data) => {
       : "";
 
     facebook = Data.facebookPageUrl ? Data.facebookPageUrl : "";
+    console.log(facebook, insta, twitter, "twitter");
   });
 
   return (
@@ -54,28 +56,49 @@ const Footer = (Data: data) => {
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">
             <div className="logo">
-              <a href="#">
+              <Link
+                href="#"
+                rel="noopener noreferrer"
+                eventName={`footerLogo`}
+                data-ya-track="footerLogo"
+              >
                 <img
                   style={{ maxWidth: "50%" }}
                   src="https://order-salata-cms.azureedge.net/uploads/_/originals/salata_logo_nav@2x.svg"
                   alt="Favorite Fried Chicken"
                 />
-              </a>
+              </Link>
             </div>
           </div>
           {/* c_menu */}
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href={Data.c_menu?.firstLevelCTA.link}>
+                <Link
+                  rel="noopener noreferrer"
+                  eventName={`footerMenuItem`}
+                  data-ya-track="footerMenuItem"
+                  href={
+                    Data.c_menu?.firstLevelCTA.link
+                      ? Data.c_menu.firstLevelCTA.link
+                      : "#"
+                  }
+                >
                   {Data.c_menu?.firstLevelCTA.label}
-                </a>
+                </Link>
                 <ul className="footer-links">
                   {Data.c_menu?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>
-                          <a href={i.link}>{i.label}</a>
+                          <Link
+                            href={i.link ? i.link : "#"}
+                            rel="noopener noreferrer"
+                            eventName={`footerMenuItem`}
+                            data-ya-track="footerMenuItem"
+                          >
+                            {i.label}
+                          </Link>
                         </li>
                       </>
                     );
@@ -88,15 +111,31 @@ const Footer = (Data: data) => {
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href={Data.c_newsroom?.firstLevelCTA.link}>
+                <Link
+                  href={
+                    Data.c_newsroom?.firstLevelCTA.link
+                      ? Data.c_newsroom.firstLevelCTA.link
+                      : "#"
+                  }
+                  rel="noopener noreferrer"
+                  eventName={`footerMenuItem`}
+                  data-ya-track="footerMenuItem"
+                >
                   {Data.c_newsroom?.firstLevelCTA.label}
-                </a>
+                </Link>
                 <ul className="footer-links">
                   {Data.c_newsroom?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>
-                          <a href={i.link}>{i.label}</a>
+                          <Link
+                            rel="noopener noreferrer"
+                            eventName={`footerMenuItem`}
+                            data-ya-track="footerMenuItem"
+                            href={i.link ? i.link : "#"}
+                          >
+                            {i.label}
+                          </Link>
                         </li>
                       </>
                     );
@@ -109,15 +148,31 @@ const Footer = (Data: data) => {
           <div className="">
             <ul className="footer-links">
               <li>
-                <a href={Data.c_growWithUs?.firstLevelCTA.link}>
+                <Link
+                  href={
+                    Data.c_growWithUs?.firstLevelCTA.link
+                      ? Data.c_growWithUs.firstLevelCTA.link
+                      : "#"
+                  }
+                  rel="noopener noreferrer"
+                  eventName={`footerMenuItem`}
+                  data-ya-track="footerMenuItem"
+                >
                   {Data.c_growWithUs?.firstLevelCTA.label}
-                </a>
+                </Link>
                 <ul className="footer-links">
                   {Data.c_growWithUs?.secondLevelCTA.map((i: any) => {
                     return (
                       <>
                         <li>
-                          <a href={i.link}>{i.label}</a>
+                          <Link
+                            rel="noopener noreferrer"
+                            eventName={`footerMenuItem`}
+                            data-ya-track="footerMenuItem"
+                            href={i.link ? i.link : "#"}
+                          >
+                            {i.label}
+                          </Link>
                         </li>
                       </>
                     );
@@ -133,11 +188,31 @@ const Footer = (Data: data) => {
               {Data.address?.city}, {Data.address?.region}{" "}
               {Data.address?.postalCode}
             </p>
-
-            <a href={`tel:${Data.mainPhone}`}>
-              <p>{Data.mainPhone}</p>
-            </a>
-            <a href={`mailto:${Data?.emails}`}>{Data?.emails}</a>
+            {Data.mainPhone ? (
+              <>
+                <Link
+                  href={`tel:${Data.mainPhone}`}
+                  eventName={`phone`}
+                  data-ya-track="phone"
+                >
+                  <p>{Data.mainPhone}</p>
+                </Link>
+              </>
+            ) : (
+              <></>
+            )}
+            {Data?.emails ? (
+              <Link
+                // rel="noopener noreferrer"
+                // eventName={`email`}
+                // data-ya-track="email"
+                href={`mailto:${Data?.emails}`}
+              >
+                {Data?.emails}
+              </Link>
+            ) : (
+              <></>
+            )}
           </div>
         </div>
 
@@ -153,22 +228,14 @@ const Footer = (Data: data) => {
               <li>
                 {Data?.c_downloadapp}
                 <div className="app-link">
-                  <a
-                    target="_blank"
-                    href={Data.c_android}
-                    rel="noopener noreferrer"
-                  >
+                  <a target="_blank" href="#" rel="noopener noreferrer">
                     <img src={appStore} alt="Google Play" />{" "}
                     <span>
                       GET IT ON <b>Google Play</b>
                     </span>
                   </a>
 
-                  <a
-                    target="_blank"
-                    href={Data.c_apple}
-                    rel="noopener noreferrer"
-                  >
+                  <a target="_blank" href="#" rel="noopener noreferrer">
                     <img src={googlePlay} alt="App Store" />{" "}
                     <span>
                       Download on the <b>App Store</b>
@@ -183,61 +250,67 @@ const Footer = (Data: data) => {
             <p> {Data.c_giveYourInboxATasteLift}</p>
             <ul className="social-links" style={{ marginTop: "10px" }}>
               <li>
-                <a href={Data?.c_signUp?.link}>{Data?.c_signUp?.label}</a>
+                <Link
+                  rel="noopener noreferrer"
+                  eventName={`SignUp`}
+                  data-ya-track="SignUp"
+                  href="#"
+                >
+                  {Data?.c_signUp?.label}
+                </Link>
               </li>
             </ul>
           </div>
           {/* Social-links */}
           <div className="text-center">
-            <p>Stay Connected with Us</p>
+            {Data.facebookPageUrl ||
+            Data.instagramHandle ||
+            Data.twitterHandle ? (
+              <p>Stay Connected with Us</p>
+            ) : (
+              <></>
+            )}
+
             <ul className="social-links">
               {Data.facebookPageUrl ? (
                 <li>
-                  <a
-                    target="_blank"
-                    href={
-                      facebook
-                        ? `${Data.facebookPageUrl}`
-                        : ` ${Data.facebookPageUrl}`
-                    }
+                  <Link
                     rel="noopener noreferrer"
+                    eventName={`footerSocialIcon`}
+                    data-ya-track="footerSocialIcon"
+                    target="_blank"
+                    href="#"
                   >
                     {svgIcons.facebook}
-                  </a>
+                  </Link>
                 </li>
               ) : (
                 ""
               )}
               {Data.instagramHandle ? (
                 <li>
-                  <a
+                  <Link
                     target="_blank"
-                    href={
-                      insta
-                        ? `/${Data.instagramHandle}`
-                        : `https://www.instagram.com/${Data.instagramHandle}`
-                    }
+                    href="#"
                     rel="noopener noreferrer"
+                    eventName={`footerSocialIcon`}
                   >
                     {svgIcons.instagram}
-                  </a>
+                  </Link>
                 </li>
               ) : (
                 ""
               )}
               {Data.twitterHandle ? (
                 <li>
-                  <a
+                  <Link
                     target="_blank"
-                    href={
-                      twitter
-                        ? `/${Data.twitterHandle}`
-                        : `https://twitter.com/${Data.twitterHandle}`
-                    }
+                    href="#"
                     rel="noopener noreferrer"
+                    eventName={`footerSocialIcon`}
                   >
                     {svgIcons.twitter}
-                  </a>
+                  </Link>
                 </li>
               ) : (
                 ""
@@ -249,17 +322,38 @@ const Footer = (Data: data) => {
         <div className="container flex flex-col lg:flex-row justify-center">
           <div className="footer-address">
             <span>
-              <a href={Data?.c_sitemap?.link}>{Data?.c_sitemap.label}</a>
+              <Link
+                rel="noopener noreferrer"
+                eventName={`footerMenuItem`}
+                data-ya-track="footerMenuItem"
+                href={Data?.c_sitemap?.link ? Data.c_sitemap.link : "#"}
+              >
+                {Data?.c_sitemap.label}
+              </Link>
             </span>
             <span style={{ marginLeft: "5px", marginRight: "5px" }}>|</span>
             <span>
-              <a href={Data?.c_privacyPolicy?.link}>
+              <Link
+                rel="noopener noreferrer"
+                eventName={`footerMenuItem`}
+                data-ya-track="footerMenuItem"
+                href={
+                  Data?.c_privacyPolicy?.link ? Data.c_privacyPolicy.link : "#"
+                }
+              >
                 {Data.c_privacyPolicy.label}
-              </a>{" "}
+              </Link>{" "}
               &{" "}
-              <a href={Data.c_termsOfService?.link}>
+              <Link
+                rel="noopener noreferrer"
+                eventName={`footerMenuItem`}
+                data-ya-track="footerMenuItem"
+                href={
+                  Data.c_termsOfService?.link ? Data.c_termsOfService.link : "#"
+                }
+              >
                 {Data.c_termsOfService.label}
-              </a>
+              </Link>
             </span>
             <span style={{ marginLeft: "5px", marginRight: "5px" }}>|</span>
             <span>{Data.c_copyright}</span>

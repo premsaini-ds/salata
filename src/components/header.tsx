@@ -1,6 +1,7 @@
 import * as React from "react";
 import "../index.css";
 import "../main.css";
+import { Link } from "@yext/pages/components";
 
 type data = {
   nav: any;
@@ -18,13 +19,18 @@ const Header = (headerItem: data) => {
         <div className="header-top">
           <div className="container flex flex-row justify-between items-center">
             <div className="logo">
-              <a href="#">
+              <Link
+                href="#"
+                rel="noopener noreferrer"
+                eventName={`headerLogo`}
+                data-ya-track="headerLogo"
+              >
                 <img
                   style={{ maxWidth: "50%" }}
                   src="https://order-salata-cms.azureedge.net/uploads/_/originals/salata_logo_nav@2x.svg"
                   alt="Favorite Fried Chicken"
                 />
-              </a>
+              </Link>
             </div>
             <a href="#" className="store-locator-link">
               <svg
@@ -61,22 +67,36 @@ const Header = (headerItem: data) => {
           <div className="container flex flex-row justify-between">
             <ul id="main-nav" className="main-nav">
               {headerItem.nav &&
-                headerItem.nav.map((i: any) => {
+                headerItem.nav.map((i: any, index: any) => {
                   return (
                     <>
-                      <li>
-                        <a href={i.link}>{i.label}</a>
+                      <li key={index}>
+                        <Link
+                          href={i.link ? i.link : "#"}
+                          rel="noopener noreferrer"
+                          eventName={`headerNavItem`}
+                          data-ya-track="headerNavItem"
+                        >
+                          {i.label}
+                        </Link>
                         {i.label.toUpperCase() ==
                         headerItem.c_growWithUs?.firstLevelCTA.label.toUpperCase() ? (
                           <>
                             <ul className="submenu">
                               {headerItem.c_growWithUs.secondLevelCTA.map(
-                                (j: any) => {
+                                (j: any, index: any) => {
                                   return (
                                     <>
                                       {" "}
-                                      <li>
-                                        <a href={j.link}>{j.label}</a>
+                                      <li key={index}>
+                                        <Link
+                                          href={j.link ? j.link : "#"}
+                                          rel="noopener noreferrer"
+                                          eventName={`headerNavItem`}
+                                          data-ya-track="headerNavItem"
+                                        >
+                                          {j.label}
+                                        </Link>
                                       </li>
                                     </>
                                   );

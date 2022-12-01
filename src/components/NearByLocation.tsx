@@ -93,6 +93,10 @@ const NearByLocation = (entities: props) => {
       );
     }
   }
+  const conversionDetails = {
+    cid: "e801ea67-1c6e-4815-baac-e61a111e9f77",
+    cv: "1",
+  };
 
   return (
     <>
@@ -211,11 +215,13 @@ const NearByLocation = (entities: props) => {
                         />
                         <div className="store-link">
                           <Link
-                            data-ya-track="directions"
+                            data-ya-track="getdirections"
+                            eventName={`cta Click:getdirections"`}
                             className="direction"
                             onClick={() => getDirectionUrl(e)}
                             href="javascript:void(0);"
                             rel="noopener noreferrer"
+                            conversionDetails={conversionDetails}
                           >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
@@ -231,7 +237,13 @@ const NearByLocation = (entities: props) => {
                             </svg>{" "}
                             Get Directions
                           </Link>
-                          <a className="view-details" href={`/${e.slug}`}>
+                          <Link
+                            className="view-details"
+                            href={`/${e.slug}`}
+                            rel="noopener noreferrer"
+                            eventName={`store View Details`}
+                            data-ya-track=" store View Details"
+                          >
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               width="22.403"
@@ -252,7 +264,7 @@ const NearByLocation = (entities: props) => {
                               </g>
                             </svg>{" "}
                             View Details
-                          </a>
+                          </Link>
                         </div>
                       </div>
                     </SplideSlide>
@@ -262,9 +274,14 @@ const NearByLocation = (entities: props) => {
           </Splide>
         </div>
         <div style={{ textAlign: "center" }}>
-          <a href="https://order.salata.com/locations">
+          <Link
+            href="https://order.salata.com/locations"
+            eventName={`View more location`}
+            // conversionDetails={conversionDetails_phone}
+            data-ya-track="View more location`"
+          >
             <b className="viewMore">View More Location</b>
-          </a>
+          </Link>
         </div>
       </div>
     </>

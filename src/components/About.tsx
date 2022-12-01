@@ -85,6 +85,8 @@ const AboutSection = (foodItem: c_foodItems) => {
               <div className="cta_btn">
                 <Link
                   rel="noopener noreferrer"
+                  eventName={`AboutCtaButton`}
+                  data-ya-track="AboutCtaButton"
                   href={
                     foodItem.CtaButton && foodItem.CtaButton.link
                       ? foodItem.CtaButton.link

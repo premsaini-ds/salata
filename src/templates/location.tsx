@@ -12,6 +12,10 @@ import { JsonLd } from "react-schemaorg";
 import AboutSection from "../components/About";
 import "../main.css";
 import {
+  AnalyticsProvider,
+  AnalyticsScopeProvider,
+} from "@yext/pages/components";
+import {
   Template,
   GetPath,
   TemplateConfig,
@@ -21,7 +25,12 @@ import {
   TransformProps,
   HeadConfig,
 } from "@yext/pages";
-import { stagingBaseUrl, liveFavIcon } from "../constants";
+import {
+  stagingBaseUrl,
+  liveFavIcon,
+  AnalyticsEnableDebugging,
+  AnalyticsEnableTrackingCookie,
+} from "../constants";
 
 export const config: TemplateConfig = {
   stream: {
@@ -232,9 +241,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     name,
     address,
     mainPhone,
-
     hours,
-
     c_relatedfaq,
     c_aboutData,
     deliveryHours,
@@ -403,96 +410,105 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
         }}
       />
 
-      <Header
-        nav={document._site.c_navigation}
-        c_growWithUs={document._site.c_growWithUs}
-      />
-      <BreadCrumbs
-        name={name}
-        parents={dm_directoryParents}
-        baseUrl={relativePrefixToRoot}
-        address={address}
-      ></BreadCrumbs>
-      <Banner
-        Name={name}
-        TagLine={""}
-        BackgroundImage={
-          c_aboutData && c_aboutData.photoGallery
-            ? c_aboutData.photoGallery[0].url
-            : ""
-        }
-        CtaButton={c_ctabutton}
-        template={"location"}
-      />
-      <LocationInformation
-        prop={hours}
-        deliveryHours={deliveryHours}
-        coords={yextDisplayCoordinate}
-        address={address}
-        phone={mainPhone}
-        c_cTAButton2={"c_cTAButton2"}
-        c_deliveryServicesJustEat={""}
-        c_deliveryServicesUberEats={""}
-        c_deliveryServicesDeliveroo={""}
-        facebookPageUrl={""}
-        instagramHandle={""}
-        twitterHandle={""}
-        c_tikTok={"c_tikTok"}
-        what3WordsAddress={"what3WordsAddress"}
-        timezone={timezone}
-      />
+      <AnalyticsProvider
+        templateData={templateData}
+        enableDebugging={AnalyticsEnableDebugging}
+        enableTrackingCookie={AnalyticsEnableTrackingCookie}
+      >
+        {" "}
+        <AnalyticsScopeProvider name={""}>
+          <Header
+            nav={document._site.c_navigation}
+            c_growWithUs={document._site.c_growWithUs}
+          />
+          <BreadCrumbs
+            name={name}
+            parents={dm_directoryParents}
+            baseUrl={relativePrefixToRoot}
+            address={address}
+          ></BreadCrumbs>
+          <Banner
+            Name={name}
+            TagLine={""}
+            BackgroundImage={
+              c_aboutData && c_aboutData.photoGallery
+                ? c_aboutData.photoGallery[0].url
+                : ""
+            }
+            CtaButton={c_ctabutton}
+            template={"location"}
+          />
+          <LocationInformation
+            prop={hours}
+            deliveryHours={deliveryHours}
+            coords={yextDisplayCoordinate}
+            address={address}
+            phone={mainPhone}
+            c_cTAButton2={"c_cTAButton2"}
+            c_deliveryServicesJustEat={""}
+            c_deliveryServicesUberEats={""}
+            c_deliveryServicesDeliveroo={""}
+            facebookPageUrl={""}
+            instagramHandle={""}
+            twitterHandle={""}
+            c_tikTok={"c_tikTok"}
+            what3WordsAddress={"what3WordsAddress"}
+            timezone={timezone}
+          />
 
-      {c_gallery_food ? (
-        <AboutSection
-          prop={c_gallery_food}
-          prop2={c_aboutData}
-          CtaButton={c_ctabutton}
-        />
-      ) : (
-        <></>
-      )}
+          {c_gallery_food ? (
+            <AboutSection
+              prop={c_gallery_food}
+              prop2={c_aboutData}
+              CtaButton={c_ctabutton}
+            />
+          ) : (
+            <></>
+          )}
 
-      {c_gallery_food ? (
-        <>
-          {" "}
-          <List prop={c_gallery_food} />
-        </>
-      ) : (
-        <></>
-      )}
-      {c_relatedfaq ? <Faq prop={c_relatedfaq} /> : <></>}
+          {c_gallery_food ? (
+            <>
+              {" "}
+              <List prop={c_gallery_food} />
+            </>
+          ) : (
+            <></>
+          )}
+          {c_relatedfaq ? <Faq prop={c_relatedfaq} /> : <></>}
 
-      {externalApiData ? (
-        <NearByLocation
-          prop={externalApiData}
-          coords={yextDisplayCoordinate}
-          slug={url}
-        />
-      ) : (
-        <></>
-      )}
+          {externalApiData ? (
+            <NearByLocation
+              prop={externalApiData}
+              coords={yextDisplayCoordinate}
+              slug={url}
+            />
+          ) : (
+            <></>
+          )}
 
-      <Footer
-        address={document._site.address}
-        c_privacyPolicy={document._site.c_privacyPolicy}
-        c_salataHomeOffice={document._site.c_salataHomeOffice}
-        c_termsOfService={document._site.c_termsOfService}
-        c_sitemap={document._site.c_sitemap}
-        mainPhone={document._site.mainPhone}
-        c_menu={document._site.c_menu}
-        c_newsroom={document._site.c_newsroom}
-        c_growWithUs={document._site.c_growWithUs}
-        c_downloadapp={document._site.c_downloadapp}
-        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
-        c_signUp={document._site.c_signUp}
-        facebookPageUrl={document._site.facebookPageUrl}
-        twitterHandle={document._site.twitterHandle}
-        instagramHandle={document._site.instagramHandle}
-        c_android={document._site.c_android}
-        c_apple={document._site.c_apple}
-        emails={document._site.emails[0]}
-        c_copyright={document._site.c_copyright}
-      />
+          <Footer
+            address={document._site.address}
+            c_privacyPolicy={document._site.c_privacyPolicy}
+            c_salataHomeOffice={document._site.c_salataHomeOffice}
+            c_termsOfService={document._site.c_termsOfService}
+            c_sitemap={document._site.c_sitemap}
+            mainPhone={document._site.mainPhone}
+            c_menu={document._site.c_menu}
+            c_newsroom={document._site.c_newsroom}
+            c_growWithUs={document._site.c_growWithUs}
+            c_downloadapp={document._site.c_downloadapp}
+            c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+            c_signUp={document._site.c_signUp}
+            facebookPageUrl={document._site.facebookPageUrl}
+            twitterHandle={document._site.twitterHandle}
+            instagramHandle={document._site.instagramHandle}
+            c_android={document._site.c_android}
+            c_apple={document._site.c_apple}
+            emails={document._site.emails[0]}
+            c_copyright={document._site.c_copyright}
+          />
+        </AnalyticsScopeProvider>
+      </AnalyticsProvider>
     </>
   );
 };

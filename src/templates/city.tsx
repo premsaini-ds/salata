@@ -6,6 +6,16 @@ import BreadCrumbs from "../components/BreadCrumbs";
 import bannerImage from "../images/bg-image.png";
 import { stagingBaseUrl, liveFavIcon } from "../constants";
 import { JsonLd } from "react-schemaorg";
+import { Link } from "@yext/pages/components";
+import {
+  AnalyticsProvider,
+  AnalyticsScopeProvider,
+} from "@yext/pages/components";
+import {
+  AnalyticsEnableDebugging,
+  AnalyticsEnableTrackingCookie,
+  conversionDetailsDirection,
+} from "../constants";
 import {
   Template,
   GetPath,
@@ -55,7 +65,9 @@ export const getPath: GetPath<TemplateProps> = ({ document }) => {
 
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   document,
+  __meta,
 }): HeadConfig => {
+  var templateData = { document: document, __meta: __meta };
   let metaDescription = document.c_metaDescription
     ? document.c_metaDescription
     : `Salata restaurant ` + document.name.toLowerCase();
@@ -183,10 +195,12 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 
 const City: Template<TemplateRenderProps> = ({
   relativePrefixToRoot,
-  path,
   document,
+  __meta,
 }) => {
-  const { name, dm_directoryParents, dm_directoryChildren, _site } = document;
+  const { name, dm_directoryParents, dm_directoryChildren } = document;
+
+  let templateData = { document: document, __meta: __meta };
 
   const regionNames = new Intl.DisplayNames(["en"], { type: "region" });
 
@@ -273,7 +287,10 @@ const City: Template<TemplateRenderProps> = ({
       ) : (
         ""
       );
-
+      const conversionDetails = {
+        cid: "e801ea67-1c6e-4815-baac-e61a111e9f77",
+        cv: "1",
+      };
       return (
         <div className="w-full sm:w-1/2 xl:w-1/3 px-[15px]">
           <div className="near-location">
@@ -346,13 +363,15 @@ const City: Template<TemplateRenderProps> = ({
             )}
 
             <div className="store-link">
-              <a
+              <Link
                 className="direction"
                 href="javascript:void(0);"
                 onClick={() => {
                   getDirectionUrl(entity);
                 }}
                 rel="noopener noreferrer"
+                eventName={`getdirections"`}
+                conversionDetails={conversionDetailsDirection}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -367,8 +386,14 @@ const City: Template<TemplateRenderProps> = ({
                   />
                 </svg>{" "}
                 Get Directions
-              </a>
-              <a className="view-details" href={`/${url}`}>
+              </Link>
+              <Link
+                className="view-details"
+                href={`/${url}`}
+                rel="noopener noreferrer"
+                eventName={`store View Details`}
+                data-ya-track=" store View Details"
+              >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="22.403"
@@ -389,7 +414,7 @@ const City: Template<TemplateRenderProps> = ({
                   </g>
                 </svg>{" "}
                 View Details
-              </a>
+              </Link>
             </div>
           </div>
         </div>
@@ -515,53 +540,65 @@ const City: Template<TemplateRenderProps> = ({
           itemListElement: breadcrumbScheme,
         }}
       />
-      <Header nav={document._site.c_navigation} />
-      <BreadCrumbs
-        name={name}
-        parents={dm_directoryParents}
-        baseUrl={relativePrefixToRoot}
-      ></BreadCrumbs>
-      <Banner
-        Name={name ? name : ""}
-        TagLine={""}
-        BackgroundImage={bannerImage}
-        CtaButton={""}
-        text={name ? name : ""}
-        template={"city"}
-      />
-      <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
-        Available Stores in {name}, {document.dm_directoryParents[2].name},{" "}
-        {document.dm_directoryParents[1].name}{" "}
-      </h3>
-      <div className="directory-country nearby-sec">
-        <div className="container">
-          <div className="flex  flex-wrap justify-center -mx-[15px]">
-            {childrenDivs}
+      <AnalyticsProvider
+        templateData={templateData}
+        enableDebugging={AnalyticsEnableDebugging}
+        enableTrackingCookie={AnalyticsEnableTrackingCookie}
+      >
+        {" "}
+        <AnalyticsScopeProvider name={"header"}>
+          <Header
+            nav={document._site.c_navigation}
+            c_growWithUs={document._site.c_growWithUs}
+          />
+          <BreadCrumbs
+            name={name}
+            parents={dm_directoryParents}
+            baseUrl={relativePrefixToRoot}
+          ></BreadCrumbs>
+          <Banner
+            Name={name ? name : ""}
+            TagLine={""}
+            BackgroundImage={bannerImage}
+            CtaButton={""}
+            text={name ? name : ""}
+            template={"city"}
+          />
+          <h3 className="sec_heading mt-12" style={{ textAlign: "center" }}>
+            Available Stores in {name}, {document.dm_directoryParents[2].name},{" "}
+            {document.dm_directoryParents[1].name}{" "}
+          </h3>
+          <div className="directory-country nearby-sec">
+            <div className="container">
+              <div className="flex  flex-wrap justify-center -mx-[15px]">
+                {childrenDivs}
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
 
-      <Footer
-        address={document._site.address}
-        c_privacyPolicy={document._site.c_privacyPolicy}
-        c_salataHomeOffice={document._site.c_salataHomeOffice}
-        c_termsOfService={document._site.c_termsOfService}
-        c_sitemap={document._site.c_sitemap}
-        mainPhone={document._site.mainPhone}
-        c_menu={document._site.c_menu}
-        c_newsroom={document._site.c_newsroom}
-        c_growWithUs={document._site.c_growWithUs}
-        c_downloadapp={document._site.c_downloadapp}
-        c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
-        c_signUp={document._site.c_signUp}
-        facebookPageUrl={document._site.facebookPageUrl}
-        twitterHandle={document._site.twitterHandle}
-        instagramHandle={document._site.instagramHandle}
-        c_android={document._site.c_android}
-        c_apple={document._site.c_apple}
-        emails={document._site.emails[0]}
-        c_copyright={document._site.c_copyright}
-      />
+          <Footer
+            address={document._site.address}
+            c_privacyPolicy={document._site.c_privacyPolicy}
+            c_salataHomeOffice={document._site.c_salataHomeOffice}
+            c_termsOfService={document._site.c_termsOfService}
+            c_sitemap={document._site.c_sitemap}
+            mainPhone={document._site.mainPhone}
+            c_menu={document._site.c_menu}
+            c_newsroom={document._site.c_newsroom}
+            c_growWithUs={document._site.c_growWithUs}
+            c_downloadapp={document._site.c_downloadapp}
+            c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
+            c_signUp={document._site.c_signUp}
+            facebookPageUrl={document._site.facebookPageUrl}
+            twitterHandle={document._site.twitterHandle}
+            instagramHandle={document._site.instagramHandle}
+            c_android={document._site.c_android}
+            c_apple={document._site.c_apple}
+            emails={document._site.emails[0]}
+            c_copyright={document._site.c_copyright}
+          />
+        </AnalyticsScopeProvider>
+      </AnalyticsProvider>
     </>
   );
 };

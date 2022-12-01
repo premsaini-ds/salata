@@ -2,7 +2,7 @@ import * as React from "react";
 import Hours from "../components/hours";
 import CustomMap from "../components/CustomMap";
 
-import { Link, useAnalytics } from "@yext/pages/components";
+import { Link } from "@yext/pages/components";
 import OpenCloseTime from "../components/OpenCloseTime";
 
 type props = {
@@ -209,6 +209,9 @@ const LocationInformation = (data: props) => {
                         <Link
                           href={`tel:${data.phone}`}
                           rel="noopener noreferrer"
+                          eventName={`phone`}
+                          conversionDetails={conversionDetails_phone}
+                          data-ya-track="phone"
                         >
                           {data.phone ? data.phone : ""}
                         </Link>
@@ -220,13 +223,13 @@ const LocationInformation = (data: props) => {
 
                   <div className="store-link">
                     <Link
-                      data-ya-track="getdirections"
-                      eventName={`cta Click:getdirections"`}
                       className="direction"
                       onClick={getDirectionUrl}
                       href="javascript:void(0);"
                       rel="noopener noreferrer"
                       conversionDetails={conversionDetails}
+                      data-ya-track="getdirections"
+                      eventName={`cta Click:getdirections"`}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -243,12 +246,15 @@ const LocationInformation = (data: props) => {
                       Get Directions
                     </Link>
 
-                    <a
+                    <Link
                       className="call-store"
                       href="https://order.salata.com/menu"
+                      eventName={`Order Now`}
+                      // conversionDetails={conversionDetails_phone}
+                      data-ya-track="Order Now"
                     >
                       Order Now
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </div>

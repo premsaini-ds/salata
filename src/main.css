@@ -953,7 +953,12 @@ Footer
 .site-footer .social-links a:hover{
   @apply no-underline
 }
-
+#reactele {
+  @apply flex flex-col min-h-screen
+}
+.site-footer{
+  @apply mt-auto
+}
 
 /* */
 

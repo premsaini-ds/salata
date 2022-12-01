@@ -10,6 +10,7 @@ import * as React from "react";
 import Header from "../components/header";
 import Footer from "../components/footer";
 import { liveFavIcon } from "../constants";
+
 // The path must be exactly 404.html
 export const getPath: GetPath<TemplateProps> = () => {
   return "404.html";
@@ -43,17 +44,24 @@ const FourOhFour: Template<TemplateRenderProps> = ({ document }) => {
   return (
     <>
       <Header nav={document._site.c_navigation} />
-
-      <h4 style={{ textAlign: "center", color: "#2e8661" }}>
-        you must’ve reached the bottom of the bowl
-      </h4>
-      <p style={{ textAlign: "center" }}>
-        <span>
-          The page you’re looking for couldn’t be found. Use the navigation or
-          return to
-        </span>
-        <a href="Salata.com">Salata.com</a> <span>for a fresh start.</span>
-      </p>
+      <div className="container" style={{ marginTop: "100px" }}>
+        <h2 style={{ textAlign: "center", color: "#2e8661" }}>
+          you must’ve reached the bottom of the bowl
+        </h2>
+        <p style={{ textAlign: "center" }}>
+          <span>
+            The page you’re looking for couldn’t be found. Use the navigation or
+            return to
+          </span>
+          <a
+            href="Salata.com"
+            style={{ marginLeft: "5px", marginRight: "5px", color: "red" }}
+          >
+            Salata.com
+          </a>{" "}
+          <span>for a fresh start.</span>
+        </p>
+      </div>
       <Footer
         address={document._site.address}
         c_privacyPolicy={document._site.c_privacyPolicy}

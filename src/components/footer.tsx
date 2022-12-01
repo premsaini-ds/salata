@@ -10,6 +10,7 @@ import {
 import "../../src/main.css";
 import { svgIcons } from "../svgIcon";
 import { Link } from "@yext/pages/components";
+
 type data = {
   address: any;
   c_privacyPolicy: any;
@@ -31,6 +32,7 @@ type data = {
   emails: any;
   c_copyright: any;
 };
+
 var insta: Boolean = false;
 var twitter: Boolean = false;
 var facebook: Boolean = false;
@@ -52,7 +54,6 @@ const Footer = (Data: data) => {
     <>
       <footer className="site-footer">
         {/* first */}
-
         <div className="container flex flex-col lg:flex-row justify-between">
           <div className="">
             <div className="logo">
@@ -70,6 +71,7 @@ const Footer = (Data: data) => {
               </Link>
             </div>
           </div>
+
           {/* c_menu */}
           <div className="">
             <ul className="footer-links">
@@ -86,6 +88,7 @@ const Footer = (Data: data) => {
                 >
                   {Data.c_menu?.firstLevelCTA.label}
                 </Link>
+
                 <ul className="footer-links">
                   {Data.c_menu?.secondLevelCTA.map((i: any) => {
                     return (
@@ -107,6 +110,7 @@ const Footer = (Data: data) => {
               </li>
             </ul>
           </div>
+
           {/* c_newsroom */}
           <div className="">
             <ul className="footer-links">
@@ -144,6 +148,7 @@ const Footer = (Data: data) => {
               </li>
             </ul>
           </div>
+
           {/* c_growWithUs */}
           <div className="">
             <ul className="footer-links">
@@ -203,9 +208,9 @@ const Footer = (Data: data) => {
             )}
             {Data?.emails ? (
               <Link
-                // rel="noopener noreferrer"
-                // eventName={`email`}
-                // data-ya-track="email"
+                rel="noopener noreferrer"
+                eventName={`email`}
+                data-ya-track="email"
                 href={`mailto:${Data?.emails}`}
               >
                 {Data?.emails}
@@ -251,12 +256,12 @@ const Footer = (Data: data) => {
             <ul className="social-links" style={{ marginTop: "10px" }}>
               <li>
                 <Link
+                  href="#"
                   rel="noopener noreferrer"
                   eventName={`SignUp`}
                   data-ya-track="SignUp"
-                  href="#"
                 >
-                  {Data?.c_signUp?.label}
+                  {Data?.c_signUp.label}
                 </Link>
               </li>
             </ul>

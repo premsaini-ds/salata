@@ -47,7 +47,6 @@ const Footer = (Data: data) => {
       : "";
 
     facebook = Data.facebookPageUrl ? Data.facebookPageUrl : "";
-    console.log(facebook, insta, twitter, "twitter");
   });
 
   return (

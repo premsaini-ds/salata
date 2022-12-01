@@ -40,7 +40,7 @@ export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
 // Template that will show as the page
 const FourOhFour: Template<TemplateRenderProps> = ({ document }) => {
   const { _site } = document;
-
+  console.log("fjjlf");
   return (
     <>
       <Header nav={document._site.c_navigation} />

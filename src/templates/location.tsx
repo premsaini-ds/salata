@@ -34,7 +34,7 @@ import {
 
 export const config: TemplateConfig = {
   stream: {
-    $id: "locations",
+    $id: "location",
 
     fields: [
       "id",
@@ -44,23 +44,23 @@ export const config: TemplateConfig = {
       "description",
       "slug",
       "hours",
-      "photoGallery.description",
-      "photoGallery.image",
-      "c_relatedfaq.question",
-      "c_relatedfaq.answer",
-      "c_aboutData",
-      "deliveryHours",
-      "timezone",
-      "yextDisplayCoordinate",
-      "c_ctabutton",
-      "c_gallery_food",
-      "dm_directoryParents.name",
-      "dm_directoryParents.slug",
-      "dm_directoryParents.meta.entityType",
-      "dm_directoryParents.c_addressRegionDisplayName",
+      // "photoGallery.description",
+      // "photoGallery.image",
+      // "c_relatedfaq.question",
+      // "c_relatedfaq.answer",
+      // "c_aboutData",
+      // "deliveryHours",
+      // "timezone",
+      // "yextDisplayCoordinate",
+      // "c_ctabutton",
+      // "c_gallery_food",
+      // "dm_directoryParents.name",
+      // "dm_directoryParents.slug",
+      // "dm_directoryParents.meta.entityType",
+      // "dm_directoryParents.c_addressRegionDisplayName",
     ],
     filter: {
-      entityTypes: ["restaurant"],
+      entityTypes: ["location"],
     },
     localization: {
       locales: ["en"],
@@ -241,15 +241,9 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
     name,
     address,
     mainPhone,
-    hours,
-    c_relatedfaq,
-    c_aboutData,
-    deliveryHours,
-    timezone,
-    yextDisplayCoordinate,
-    c_ctabutton,
-    c_gallery_food,
-    dm_directoryParents,
+    description,
+    slug,
+    hours
   } = document;
   const { _site } = document;
   let templateData = { document: document, __meta: __meta };
@@ -292,19 +286,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
       }
     }
   }
-  dm_directoryParents &&
-    dm_directoryParents.map((i: any, index: any) => {
-      if (index != 0) {
-        breadcrumbScheme.push({
-          "@type": "ListItem",
-          position: index,
-          item: {
-            "@id": `${stagingBaseUrl}${i.slug}.html`,
-            name: i.name,
-          },
-        });
-      }
-    });
+
   let url = "";
   let Name: any = document.name.toLowerCase();
   let string: any = Name.toString();
@@ -331,184 +313,7 @@ const LocationTemplate: Template<ExternalApiRenderData> = ({
 
   return (
     <>
-      <JsonLd<Restaurant>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "Restaurant",
-          name: "Favorite Chicken & Ribs",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: address.line1,
-            addressLocality: address.city,
-            addressRegion: address.region,
-            postalCode: address.postalCode,
-            addressCountry: address.countryCode,
-          },
-          openingHoursSpecification: hours ? hoursSchema : [],
-        }}
-      />
-      <JsonLd<Organization>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "Organization",
-          name: "Salata Limited",
-          url: "https://www.salata.com/",
-          // logo: "https://favorite.co.uk/assets/img/logo-social.png",
-          address: {
-            "@type": "PostalAddress",
-            streetAddress: "Salata Corporate HQ 16720 Park Row Dr Houston,",
-            // addressLocality: "Clacton-on-Sea",
-            addressRegion: "Texas",
-            postalCode: "77084",
-            addressCountry: "United states ",
-          },
-          contactPoint: {
-            "@type": "ContactPoint",
-            contactType: "contact",
-            telephone: "(844) 725-2821",
-          },
-          sameAs: [
-            "https://www.facebook.com/SalataSalads",
-            "https://www.instagram.com/salatasalads/",
-            "https://twitter.com/salatasalads",
-          ],
-        }}
-      />
-
-      {c_relatedfaq ? (
-        <>
-          <JsonLd<FAQPage>
-            item={{
-              "@context": "https://schema.org",
-              "@type": "FAQPage",
-
-              mainEntity:
-                c_relatedfaq &&
-                c_relatedfaq.map((i: any) => {
-                  return {
-                    "@type": "Question",
-                    name: i.question,
-                    acceptedAnswer: {
-                      "@type": "Answer",
-                      text: `<p>${i.answer}</p>`,
-                    },
-                  };
-                }),
-            }}
-          />
-        </>
-      ) : (
-        <></>
-      )}
-
-      <JsonLd<BreadcrumbList>
-        item={{
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-
-          itemListElement: breadcrumbScheme,
-        }}
-      />
-
-      <AnalyticsProvider
-        templateData={templateData}
-        enableDebugging={AnalyticsEnableDebugging}
-        enableTrackingCookie={AnalyticsEnableTrackingCookie}
-      >
-        {" "}
-        <AnalyticsScopeProvider name={""}>
-          <Header
-            nav={document._site.c_navigation}
-            c_growWithUs={document._site.c_growWithUs}
-          />
-          <BreadCrumbs
-            name={name}
-            parents={dm_directoryParents}
-            baseUrl={relativePrefixToRoot}
-            address={address}
-          ></BreadCrumbs>
-          <Banner
-            Name={name}
-            TagLine={""}
-            BackgroundImage={
-              c_aboutData && c_aboutData.photoGallery
-                ? c_aboutData.photoGallery[0].url
-                : ""
-            }
-            CtaButton={c_ctabutton}
-            template={"location"}
-          />
-          <LocationInformation
-            prop={hours}
-            deliveryHours={deliveryHours}
-            coords={yextDisplayCoordinate}
-            address={address}
-            phone={mainPhone}
-            c_cTAButton2={"c_cTAButton2"}
-            c_deliveryServicesJustEat={""}
-            c_deliveryServicesUberEats={""}
-            c_deliveryServicesDeliveroo={""}
-            facebookPageUrl={""}
-            instagramHandle={""}
-            twitterHandle={""}
-            c_tikTok={"c_tikTok"}
-            what3WordsAddress={"what3WordsAddress"}
-            timezone={timezone}
-          />
-
-          {c_gallery_food ? (
-            <AboutSection
-              prop={c_gallery_food}
-              prop2={c_aboutData}
-              CtaButton={c_ctabutton}
-            />
-          ) : (
-            <></>
-          )}
-
-          {c_gallery_food ? (
-            <>
-              {" "}
-              <List prop={c_gallery_food} />
-            </>
-          ) : (
-            <></>
-          )}
-          {c_relatedfaq ? <Faq prop={c_relatedfaq} /> : <></>}
-
-          {externalApiData ? (
-            <NearByLocation
-              prop={externalApiData}
-              coords={yextDisplayCoordinate}
-              slug={url}
-            />
-          ) : (
-            <></>
-          )}
-
-          <Footer
-            address={document._site.address}
-            c_privacyPolicy={document._site.c_privacyPolicy}
-            c_salataHomeOffice={document._site.c_salataHomeOffice}
-            c_termsOfService={document._site.c_termsOfService}
-            c_sitemap={document._site.c_sitemap}
-            mainPhone={document._site.mainPhone}
-            c_menu={document._site.c_menu}
-            c_newsroom={document._site.c_newsroom}
-            c_growWithUs={document._site.c_growWithUs}
-            c_downloadapp={document._site.c_downloadapp}
-            c_giveYourInboxATasteLift={document._site.c_giveYourInboxATasteLift}
-            c_signUp={document._site.c_signUp}
-            facebookPageUrl={document._site.facebookPageUrl}
-            twitterHandle={document._site.twitterHandle}
-            instagramHandle={document._site.instagramHandle}
-            c_android={document._site.c_android}
-            c_apple={document._site.c_apple}
-            emails={document._site.emails[0]}
-            c_copyright={document._site.c_copyright}
-          />
-        </AnalyticsScopeProvider>
-      </AnalyticsProvider>
+          {name}
     </>
   );
 };
